@@ -32,7 +32,11 @@ export default function MapView({
   cluster = true,
   className = "size-full",
   interactive = true,
+  colorFor,
+  fitPoints,
+  fitKey,
 }: MapViewProps) {
+
   const containerRef = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<google.maps.Map | null>(null);
   const markersRef = useRef<Map<string, google.maps.Marker>>(new Map());
