@@ -12,13 +12,19 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as AccountRouteImport } from './routes/account'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as DiscoverRouteImport } from './routes/discover'
 import { Route as FindRouteImport } from './routes/find'
+import { Route as HostRouteImport } from './routes/host'
 import { Route as PartnerRouteImport } from './routes/partner'
 import { Route as AuthenticatedBookingsRouteImport } from './routes/_authenticated/bookings'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
+import { Route as BookChargerIdRouteImport } from './routes/book.$chargerId'
+import { Route as ChargingPointIdRouteImport } from './routes/charging-point.$id'
 import { Route as PropertyIdRouteImport } from './routes/property.$id'
+import { Route as SessionIdRouteImport } from './routes/session.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -34,6 +40,11 @@ const AboutRoute = AboutRouteImport.update({
   path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AccountRoute = AccountRouteImport.update({
+  id: '/account',
+  path: '/account',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
   path: '/auth',
@@ -44,9 +55,19 @@ const ContactRoute = ContactRouteImport.update({
   path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DiscoverRoute = DiscoverRouteImport.update({
+  id: '/discover',
+  path: '/discover',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const FindRoute = FindRouteImport.update({
   id: '/find',
   path: '/find',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HostRoute = HostRouteImport.update({
+  id: '/host',
+  path: '/host',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PartnerRoute = PartnerRouteImport.update({
@@ -64,93 +85,150 @@ const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
   path: '/dashboard',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const BookChargerIdRoute = BookChargerIdRouteImport.update({
+  id: '/book/$chargerId',
+  path: '/book/$chargerId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ChargingPointIdRoute = ChargingPointIdRouteImport.update({
+  id: '/charging-point/$id',
+  path: '/charging-point/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PropertyIdRoute = PropertyIdRouteImport.update({
   id: '/property/$id',
   path: '/property/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SessionIdRoute = SessionIdRouteImport.update({
+  id: '/session/$id',
+  path: '/session/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/account': typeof AccountRoute
   '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
+  '/discover': typeof DiscoverRoute
   '/find': typeof FindRoute
+  '/host': typeof HostRoute
   '/partner': typeof PartnerRoute
   '/bookings': typeof AuthenticatedBookingsRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
+  '/book/$chargerId': typeof BookChargerIdRoute
+  '/charging-point/$id': typeof ChargingPointIdRoute
   '/property/$id': typeof PropertyIdRoute
+  '/session/$id': typeof SessionIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/account': typeof AccountRoute
   '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
+  '/discover': typeof DiscoverRoute
   '/find': typeof FindRoute
+  '/host': typeof HostRoute
   '/partner': typeof PartnerRoute
   '/bookings': typeof AuthenticatedBookingsRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
+  '/book/$chargerId': typeof BookChargerIdRoute
+  '/charging-point/$id': typeof ChargingPointIdRoute
   '/property/$id': typeof PropertyIdRoute
+  '/session/$id': typeof SessionIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/about': typeof AboutRoute
+  '/account': typeof AccountRoute
   '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
+  '/discover': typeof DiscoverRoute
   '/find': typeof FindRoute
+  '/host': typeof HostRoute
   '/partner': typeof PartnerRoute
   '/_authenticated/bookings': typeof AuthenticatedBookingsRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
+  '/book/$chargerId': typeof BookChargerIdRoute
+  '/charging-point/$id': typeof ChargingPointIdRoute
   '/property/$id': typeof PropertyIdRoute
+  '/session/$id': typeof SessionIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | '/about'
+    | '/account'
     | '/auth'
     | '/contact'
+    | '/discover'
     | '/find'
+    | '/host'
     | '/partner'
     | '/bookings'
     | '/dashboard'
+    | '/book/$chargerId'
+    | '/charging-point/$id'
     | '/property/$id'
+    | '/session/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about'
+    | '/account'
     | '/auth'
     | '/contact'
+    | '/discover'
     | '/find'
+    | '/host'
     | '/partner'
     | '/bookings'
     | '/dashboard'
+    | '/book/$chargerId'
+    | '/charging-point/$id'
     | '/property/$id'
+    | '/session/$id'
   id:
     | '__root__'
     | '/'
     | '/_authenticated'
     | '/about'
+    | '/account'
     | '/auth'
     | '/contact'
+    | '/discover'
     | '/find'
+    | '/host'
     | '/partner'
     | '/_authenticated/bookings'
     | '/_authenticated/dashboard'
+    | '/book/$chargerId'
+    | '/charging-point/$id'
     | '/property/$id'
+    | '/session/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AboutRoute: typeof AboutRoute
+  AccountRoute: typeof AccountRoute
   AuthRoute: typeof AuthRoute
   ContactRoute: typeof ContactRoute
+  DiscoverRoute: typeof DiscoverRoute
   FindRoute: typeof FindRoute
+  HostRoute: typeof HostRoute
   PartnerRoute: typeof PartnerRoute
+  BookChargerIdRoute: typeof BookChargerIdRoute
+  ChargingPointIdRoute: typeof ChargingPointIdRoute
   PropertyIdRoute: typeof PropertyIdRoute
+  SessionIdRoute: typeof SessionIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -176,6 +254,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/account': {
+      id: '/account'
+      path: '/account'
+      fullPath: '/account'
+      preLoaderRoute: typeof AccountRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/auth': {
       id: '/auth'
       path: '/auth'
@@ -190,11 +275,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/discover': {
+      id: '/discover'
+      path: '/discover'
+      fullPath: '/discover'
+      preLoaderRoute: typeof DiscoverRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/find': {
       id: '/find'
       path: '/find'
       fullPath: '/find'
       preLoaderRoute: typeof FindRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/host': {
+      id: '/host'
+      path: '/host'
+      fullPath: '/host'
+      preLoaderRoute: typeof HostRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/partner': {
@@ -218,11 +317,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDashboardRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/book/$chargerId': {
+      id: '/book/$chargerId'
+      path: '/book/$chargerId'
+      fullPath: '/book/$chargerId'
+      preLoaderRoute: typeof BookChargerIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/charging-point/$id': {
+      id: '/charging-point/$id'
+      path: '/charging-point/$id'
+      fullPath: '/charging-point/$id'
+      preLoaderRoute: typeof ChargingPointIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/property/$id': {
       id: '/property/$id'
       path: '/property/$id'
       fullPath: '/property/$id'
       preLoaderRoute: typeof PropertyIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/session/$id': {
+      id: '/session/$id'
+      path: '/session/$id'
+      fullPath: '/session/$id'
+      preLoaderRoute: typeof SessionIdRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -245,11 +365,17 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AboutRoute: AboutRoute,
+  AccountRoute: AccountRoute,
   AuthRoute: AuthRoute,
   ContactRoute: ContactRoute,
+  DiscoverRoute: DiscoverRoute,
   FindRoute: FindRoute,
+  HostRoute: HostRoute,
   PartnerRoute: PartnerRoute,
+  BookChargerIdRoute: BookChargerIdRoute,
+  ChargingPointIdRoute: ChargingPointIdRoute,
   PropertyIdRoute: PropertyIdRoute,
+  SessionIdRoute: SessionIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
