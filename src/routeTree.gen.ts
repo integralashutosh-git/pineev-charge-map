@@ -14,6 +14,7 @@ import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as DiscoverRouteImport } from './routes/discover'
 import { Route as FindRouteImport } from './routes/find'
 import { Route as PartnerRouteImport } from './routes/partner'
 import { Route as AuthenticatedBookingsRouteImport } from './routes/_authenticated/bookings'
@@ -42,6 +43,11 @@ const AuthRoute = AuthRouteImport.update({
 const ContactRoute = ContactRouteImport.update({
   id: '/contact',
   path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DiscoverRoute = DiscoverRouteImport.update({
+  id: '/discover',
+  path: '/discover',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FindRoute = FindRouteImport.update({
@@ -75,6 +81,7 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
+  '/discover': typeof DiscoverRoute
   '/find': typeof FindRoute
   '/partner': typeof PartnerRoute
   '/bookings': typeof AuthenticatedBookingsRoute
@@ -86,6 +93,7 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
+  '/discover': typeof DiscoverRoute
   '/find': typeof FindRoute
   '/partner': typeof PartnerRoute
   '/bookings': typeof AuthenticatedBookingsRoute
@@ -99,6 +107,7 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
+  '/discover': typeof DiscoverRoute
   '/find': typeof FindRoute
   '/partner': typeof PartnerRoute
   '/_authenticated/bookings': typeof AuthenticatedBookingsRoute
@@ -112,6 +121,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/auth'
     | '/contact'
+    | '/discover'
     | '/find'
     | '/partner'
     | '/bookings'
@@ -123,6 +133,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/auth'
     | '/contact'
+    | '/discover'
     | '/find'
     | '/partner'
     | '/bookings'
@@ -135,6 +146,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/auth'
     | '/contact'
+    | '/discover'
     | '/find'
     | '/partner'
     | '/_authenticated/bookings'
@@ -148,6 +160,7 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   AuthRoute: typeof AuthRoute
   ContactRoute: typeof ContactRoute
+  DiscoverRoute: typeof DiscoverRoute
   FindRoute: typeof FindRoute
   PartnerRoute: typeof PartnerRoute
   PropertyIdRoute: typeof PropertyIdRoute
@@ -188,6 +201,13 @@ declare module '@tanstack/react-router' {
       path: '/contact'
       fullPath: '/contact'
       preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/discover': {
+      id: '/discover'
+      path: '/discover'
+      fullPath: '/discover'
+      preLoaderRoute: typeof DiscoverRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/find': {
@@ -247,6 +267,7 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   AuthRoute: AuthRoute,
   ContactRoute: ContactRoute,
+  DiscoverRoute: DiscoverRoute,
   FindRoute: FindRoute,
   PartnerRoute: PartnerRoute,
   PropertyIdRoute: PropertyIdRoute,
