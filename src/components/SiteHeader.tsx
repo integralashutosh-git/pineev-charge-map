@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { Menu, X, MapPin } from "lucide-react";
 import { PineLogo } from "./PineLogo";
+import { ThemeToggle } from "./ThemeToggle";
 import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 
@@ -38,6 +39,7 @@ export function SiteHeader() {
         </nav>
 
         <div className="ml-auto flex items-center gap-2 md:ml-2">
+          <ThemeToggle />
           {user ? (
             <>
               <Link to="/dashboard" className="hidden md:block">
