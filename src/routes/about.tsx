@@ -7,13 +7,13 @@ import { Button } from "@/components/ui/button";
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
-      { title: "About PineEv — verified EV charging, reserved in advance" },
+      { title: "About PineEV — verified EV charging, reserved in advance" },
       {
         name: "description",
         content:
-          "PineEv's mission is to connect EV drivers with verified commercial properties so charging is planned, not improvised.",
+          "PineEV's mission is to connect EV drivers with verified commercial properties so charging is planned, not improvised.",
       },
-      { property: "og:title", content: "About PineEv" },
+      { property: "og:title", content: "About PineEV" },
       {
         property: "og:description",
         content: "Why we are building a reservation-first EV charging network.",
@@ -27,7 +27,7 @@ const VALUES = [
   {
     icon: Target,
     title: "Certainty first",
-    body: "A charging stop should never be a gamble. Every PineEv slot is reserved before you drive.",
+    body: "A charging stop should never be a gamble. Every PineEV slot is reserved before you drive.",
   },
   {
     icon: MapPinned,
@@ -59,7 +59,7 @@ function AboutPage() {
             </span>
           </h1>
           <p className="mt-5 text-base leading-relaxed text-muted-foreground sm:text-lg">
-            PineEv connects EV drivers with verified commercial properties to reserve parking and
+            PineEV connects EV drivers with verified commercial properties to reserve parking and
             charging. Hotels, dhabas, cafés and offices already have the two things drivers need —
             space and power. We turn them into a dependable charging network with a single tap
             reservation flow.

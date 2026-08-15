@@ -8,10 +8,10 @@ export function SiteFooter() {
         <div className="md:col-span-2">
           <div className="flex items-center gap-2.5">
             <PineLogo className="h-9 w-9" />
-            <span className="font-display text-lg font-bold">PineEv</span>
+            <span className="font-display text-lg font-bold">PineEV</span>
           </div>
           <p className="mt-3 max-w-sm text-sm text-muted-foreground">
-            Find it. Reserve it. Charge it. PineEv connects EV drivers with verified commercial
+            Find it. Reserve it. Charge it. PineEV connects EV drivers with verified commercial
             properties for reserved parking and charging.
           </p>
         </div>
@@ -57,7 +57,7 @@ export function SiteFooter() {
         </div>
       </div>
       <div className="border-t border-border/70 px-4 py-5 text-center text-xs text-muted-foreground">
-        © {new Date().getFullYear()} PineEv. All rights reserved.
+        © {new Date().getFullYear()} PineEV. All rights reserved.
       </div>
     </footer>
   );

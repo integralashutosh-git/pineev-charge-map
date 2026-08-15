@@ -16,13 +16,13 @@ export const Route = createFileRoute("/auth")({
   validateSearch: searchSchema,
   head: () => ({
     meta: [
-      { title: "Sign in — PineEv" },
+      { title: "Sign in — PineEV" },
       {
         name: "description",
-        content: "Sign in to PineEv to reserve EV charging slots and manage your property listings.",
+        content: "Sign in to PineEV to reserve EV charging slots and manage your property listings.",
       },
-      { property: "og:title", content: "Sign in — PineEv" },
-      { property: "og:description", content: "Access your PineEv bookings and partner dashboard." },
+      { property: "og:title", content: "Sign in — PineEV" },
+      { property: "og:description", content: "Access your PineEV bookings and partner dashboard." },
       { name: "robots", content: "noindex" },
     ],
   }),
@@ -103,7 +103,7 @@ function AuthPage() {
       <div className="w-full max-w-sm">
         <Link to="/" className="mx-auto flex w-fit items-center gap-2.5">
           <PineLogo className="h-10 w-10" />
-          <span className="font-display text-xl font-bold">PineEv</span>
+          <span className="font-display text-xl font-bold">PineEV</span>
         </Link>
         <p className="mt-2 text-center text-sm text-muted-foreground">
           Find it. Reserve it. Charge it.
@@ -116,7 +116,7 @@ function AuthPage() {
           <p className="mt-1 text-xs text-muted-foreground">
             {mode === "signin"
               ? "Sign in to reserve charging slots."
-              : "Join PineEv in less than a minute."}
+              : "Join PineEV in less than a minute."}
           </p>
 
           <Button
@@ -211,7 +211,7 @@ function AuthPage() {
           </form>
 
           <p className="mt-4 text-center text-xs text-muted-foreground">
-            {mode === "signin" ? "New to PineEv?" : "Already have an account?"}{" "}
+            {mode === "signin" ? "New to PineEV?" : "Already have an account?"}{" "}
             <button
               type="button"
               className="font-semibold text-primary"

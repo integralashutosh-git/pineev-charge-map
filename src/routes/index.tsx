@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useSuspenseQuery, queryOptions } from "@tanstack/react-query";
 import { Search, Zap, ShieldCheck, Clock, MapPin, Star, ArrowRight } from "lucide-react";
 import { SiteHeader } from "@/components/SiteHeader";
+import { MapPanel } from "@/components/MapPanel";
 import { SiteFooter } from "@/components/SiteFooter";
 import { Button } from "@/components/ui/button";
 import { listProperties } from "@/lib/catalog.functions";
@@ -21,13 +22,13 @@ const propertiesQuery = queryOptions({
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "PineEv — Find it. Reserve it. Charge it." },
+      { title: "PineEV — Find it. Reserve it. Charge it." },
       {
         name: "description",
         content:
-          "PineEv connects EV drivers with verified hotels, cafés, dhabas and offices to reserve parking and charging in seconds.",
+          "PineEV connects EV drivers with verified hotels, cafés, dhabas and offices to reserve parking and charging in seconds.",
       },
-      { property: "og:title", content: "PineEv — Find it. Reserve it. Charge it." },
+      { property: "og:title", content: "PineEV — Find it. Reserve it. Charge it." },
       {
         property: "og:description",
         content:
@@ -88,7 +89,7 @@ function Landing() {
                 </span>
               </h1>
               <p className="mt-5 max-w-md text-base text-muted-foreground sm:text-lg">
-                PineEv connects EV drivers with verified commercial properties — hotels, cafés,
+                PineEV connects EV drivers with verified commercial properties — hotels, cafés,
                 dhabas and offices — to reserve parking and charging in a few taps.
               </p>
               <div className="mt-7 flex flex-wrap gap-3">
@@ -119,51 +120,48 @@ function Landing() {
             </div>
 
             <div className="animate-rise">
-              <Link
-                to="/find"
-                className="group relative block overflow-hidden rounded-4xl border border-border bg-card shadow-float"
-              >
+              <div className="group relative block overflow-hidden rounded-4xl border border-border bg-card shadow-float">
                 <div className="aspect-[4/5] w-full sm:aspect-[5/4]">
-                  <img
-                    src="https://maps.googleapis.com/maps/api/staticmap"
-                    alt=""
-                    className="hidden"
+                  <MapPanel
+                    properties={properties}
+                    cluster
+                    interactive={false}
+                    zoom={5}
+                    className="size-full"
+                    fitPoints={properties.map((p) => ({
+                      lat: Number(p.latitude),
+                      lng: Number(p.longitude),
+                    }))}
+                    fitKey={`landing-${properties.length}`}
                   />
-                  <div className="relative size-full bg-[linear-gradient(135deg,#eef6f1,#e6eefb)]">
-                    <div className="absolute inset-0 opacity-70 [background-image:linear-gradient(0deg,rgba(17,24,39,.06)_1px,transparent_1px),linear-gradient(90deg,rgba(17,24,39,.06)_1px,transparent_1px)] [background-size:38px_38px]" />
-                    {[
-                      ["18%", "22%", "#16A34A"],
-                      ["58%", "38%", "#16A34A"],
-                      ["32%", "62%", "#F59E0B"],
-                      ["72%", "70%", "#9CA3AF"],
-                    ].map(([left, top, color]) => (
-                      <span
-                        key={`${left}${top}`}
-                        style={{ left, top, backgroundColor: color }}
-                        className="absolute size-8 -translate-x-1/2 -translate-y-full rounded-full rounded-bl-none shadow-float"
-                      />
-                    ))}
-                    <div className="absolute inset-x-4 bottom-4 rounded-3xl border border-border/70 bg-card/90 p-4 backdrop-blur-xl">
-                      <p className="text-xs font-semibold text-primary">Available now</p>
-                      <p className="mt-1 font-display text-base font-bold">
-                        {featured[0]?.name ?? "Verified charging host"}
-                      </p>
-                      <p className="text-xs text-muted-foreground">
-                        {featured[0] ? chargerSummary(featured[0]) : "60kW DC"} ·{" "}
-                        {featured[0] ? formatPrice(featured[0].price) : "₹18/kWh"}
-                      </p>
-                    </div>
-                  </div>
                 </div>
-              </Link>
+                <div className="pointer-events-none absolute inset-x-4 bottom-4 rounded-3xl border border-border/70 bg-card/90 p-4 backdrop-blur-xl">
+                  <p className="text-xs font-semibold text-primary">
+                    {properties.length} registered hosts live
+                  </p>
+                  <p className="mt-1 font-display text-base font-bold">
+                    {featured[0]?.name ?? "Verified charging host"}
+                  </p>
+                  <p className="text-xs text-muted-foreground">
+                    {featured[0] ? chargerSummary(featured[0]) : "60kW DC"} ·{" "}
+                    {featured[0] ? formatPrice(featured[0].price) : "₹18/kWh"}
+                  </p>
+                </div>
+                <Link
+                  to="/find"
+                  aria-label="Open the live charger map"
+                  className="absolute inset-0"
+                />
+              </div>
             </div>
+
           </div>
         </section>
 
         {/* How it works */}
         <section className="border-y border-border bg-surface">
           <div className="mx-auto w-full max-w-6xl px-4 py-14 sm:px-6">
-            <h2 className="text-center text-3xl font-bold tracking-tight">How PineEv works</h2>
+            <h2 className="text-center text-3xl font-bold tracking-tight">How PineEV works</h2>
             <p className="mx-auto mt-3 max-w-lg text-center text-sm text-muted-foreground">
               Three taps between you and a guaranteed charging bay.
             </p>

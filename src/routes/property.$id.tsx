@@ -35,13 +35,13 @@ export const Route = createFileRoute("/property/$id")({
     if (!loaderData) {
       return {
         meta: [
-          { title: "Charging spot unavailable — PineEv" },
+          { title: "Charging spot unavailable — PineEV" },
           { name: "robots", content: "noindex" },
         ],
       };
     }
-    const title = `${loaderData.name}, ${loaderData.city} — Reserve EV charging | PineEv`;
-    const description = `Reserve a verified EV charging slot at ${loaderData.name} in ${loaderData.city} with PineEv.`;
+    const title = `${loaderData.name}, ${loaderData.city} — Reserve EV charging | PineEV`;
+    const description = `Reserve a verified EV charging slot at ${loaderData.name} in ${loaderData.city} with PineEV.`;
     return {
       meta: [
         { title },
