@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AboutRouteImport } from './routes/about'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as FindRouteImport } from './routes/find'
 import { Route as PartnerRouteImport } from './routes/partner'
@@ -18,6 +19,11 @@ import { Route as PropertyIdRouteImport } from './routes/property.$id'
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthRoute = AuthRouteImport.update({
@@ -43,6 +49,7 @@ const PropertyIdRoute = PropertyIdRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/auth': typeof AuthRoute
   '/find': typeof FindRoute
   '/partner': typeof PartnerRoute
@@ -50,6 +57,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/auth': typeof AuthRoute
   '/find': typeof FindRoute
   '/partner': typeof PartnerRoute
@@ -58,6 +66,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/auth': typeof AuthRoute
   '/find': typeof FindRoute
   '/partner': typeof PartnerRoute
@@ -65,14 +74,22 @@ export interface FileRoutesById {
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/auth' | '/find' | '/partner' | '/property/$id'
+  fullPaths: '/' | '/about' | '/auth' | '/find' | '/partner' | '/property/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/find' | '/partner' | '/property/$id'
-  id: '__root__' | '/' | '/auth' | '/find' | '/partner' | '/property/$id'
+  to: '/' | '/about' | '/auth' | '/find' | '/partner' | '/property/$id'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/auth'
+    | '/find'
+    | '/partner'
+    | '/property/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
   AuthRoute: typeof AuthRoute
   FindRoute: typeof FindRoute
   PartnerRoute: typeof PartnerRoute
@@ -86,6 +103,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/auth': {
@@ -121,6 +145,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
   AuthRoute: AuthRoute,
   FindRoute: FindRoute,
   PartnerRoute: PartnerRoute,
