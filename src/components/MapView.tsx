@@ -17,8 +17,9 @@ interface MapViewProps {
   /** Optional per-property marker colour override. */
   colorFor?: (property: Property) => string;
   /** Points to fit into view (user + nearby stations). Refit when the key changes. */
-  fitPoints?: { lat: number; lng: number }[];
-  fitKey?: string;
+  fitPoints?: { lat: number; lng: number }[] | undefined;
+  fitKey?: string | undefined;
+
 }
 
 
