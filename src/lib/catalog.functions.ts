@@ -79,23 +79,3 @@ export const submitContactMessage = createServerFn({ method: "POST" })
     if (error) throw new Error(error.message);
     return { ok: true };
   });
-
-export const getChargerDetail = createServerFn({ method: "GET" })
-  .inputValidator((data) => z.object({ chargerId: z.string().uuid() }).parse(data))
-  .handler(async ({ data }) => {
-    const supabase = createPublicClient();
-    const { data: charger, error } = await supabase
-      .from("chargers")
-      .select(CHARGER_COLUMNS)
-      .eq("id", data.chargerId)
-      .maybeSingle();
-    if (error) throw new Error(error.message);
-    if (!charger) return { charger: null, property: null };
-    const { data: property, error: propError } = await supabase
-      .from("properties")
-      .select(PROPERTY_COLUMNS)
-      .eq("id", charger.property_id)
-      .maybeSingle();
-    if (propError) throw new Error(propError.message);
-    return { charger, property };
-  });
