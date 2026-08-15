@@ -14,7 +14,13 @@ interface MapViewProps {
   cluster?: boolean;
   className?: string;
   interactive?: boolean;
+  /** Optional per-property marker colour override. */
+  colorFor?: (property: Property) => string;
+  /** Points to fit into view (user + nearby stations). Refit when the key changes. */
+  fitPoints?: { lat: number; lng: number }[];
+  fitKey?: string;
 }
+
 
 export default function MapView({
   properties,
