@@ -19,6 +19,7 @@ import { Route as FindRouteImport } from './routes/find'
 import { Route as PartnerRouteImport } from './routes/partner'
 import { Route as AuthenticatedBookingsRouteImport } from './routes/_authenticated/bookings'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
+import { Route as BookChargerIdRouteImport } from './routes/book.$chargerId'
 import { Route as ChargingPointIdRouteImport } from './routes/charging-point.$id'
 import { Route as PropertyIdRouteImport } from './routes/property.$id'
 
@@ -71,6 +72,11 @@ const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
   path: '/dashboard',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const BookChargerIdRoute = BookChargerIdRouteImport.update({
+  id: '/book/$chargerId',
+  path: '/book/$chargerId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ChargingPointIdRoute = ChargingPointIdRouteImport.update({
   id: '/charging-point/$id',
   path: '/charging-point/$id',
@@ -92,6 +98,7 @@ export interface FileRoutesByFullPath {
   '/partner': typeof PartnerRoute
   '/bookings': typeof AuthenticatedBookingsRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
+  '/book/$chargerId': typeof BookChargerIdRoute
   '/charging-point/$id': typeof ChargingPointIdRoute
   '/property/$id': typeof PropertyIdRoute
 }
@@ -105,6 +112,7 @@ export interface FileRoutesByTo {
   '/partner': typeof PartnerRoute
   '/bookings': typeof AuthenticatedBookingsRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
+  '/book/$chargerId': typeof BookChargerIdRoute
   '/charging-point/$id': typeof ChargingPointIdRoute
   '/property/$id': typeof PropertyIdRoute
 }
@@ -120,6 +128,7 @@ export interface FileRoutesById {
   '/partner': typeof PartnerRoute
   '/_authenticated/bookings': typeof AuthenticatedBookingsRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
+  '/book/$chargerId': typeof BookChargerIdRoute
   '/charging-point/$id': typeof ChargingPointIdRoute
   '/property/$id': typeof PropertyIdRoute
 }
@@ -135,6 +144,7 @@ export interface FileRouteTypes {
     | '/partner'
     | '/bookings'
     | '/dashboard'
+    | '/book/$chargerId'
     | '/charging-point/$id'
     | '/property/$id'
   fileRoutesByTo: FileRoutesByTo
@@ -148,6 +158,7 @@ export interface FileRouteTypes {
     | '/partner'
     | '/bookings'
     | '/dashboard'
+    | '/book/$chargerId'
     | '/charging-point/$id'
     | '/property/$id'
   id:
@@ -162,6 +173,7 @@ export interface FileRouteTypes {
     | '/partner'
     | '/_authenticated/bookings'
     | '/_authenticated/dashboard'
+    | '/book/$chargerId'
     | '/charging-point/$id'
     | '/property/$id'
   fileRoutesById: FileRoutesById
@@ -175,6 +187,7 @@ export interface RootRouteChildren {
   DiscoverRoute: typeof DiscoverRoute
   FindRoute: typeof FindRoute
   PartnerRoute: typeof PartnerRoute
+  BookChargerIdRoute: typeof BookChargerIdRoute
   ChargingPointIdRoute: typeof ChargingPointIdRoute
   PropertyIdRoute: typeof PropertyIdRoute
 }
@@ -251,6 +264,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDashboardRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/book/$chargerId': {
+      id: '/book/$chargerId'
+      path: '/book/$chargerId'
+      fullPath: '/book/$chargerId'
+      preLoaderRoute: typeof BookChargerIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/charging-point/$id': {
       id: '/charging-point/$id'
       path: '/charging-point/$id'
@@ -290,6 +310,7 @@ const rootRouteChildren: RootRouteChildren = {
   DiscoverRoute: DiscoverRoute,
   FindRoute: FindRoute,
   PartnerRoute: PartnerRoute,
+  BookChargerIdRoute: BookChargerIdRoute,
   ChargingPointIdRoute: ChargingPointIdRoute,
   PropertyIdRoute: PropertyIdRoute,
 }
