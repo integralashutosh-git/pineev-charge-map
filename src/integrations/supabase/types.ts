@@ -14,16 +14,293 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      bookings: {
+        Row: {
+          amount: number
+          booking_date: string
+          booking_ref: string
+          charger_id: string | null
+          created_at: string
+          duration_minutes: number
+          id: string
+          payment_method: string
+          property_id: string
+          status: string
+          time_slot: string
+          user_id: string
+        }
+        Insert: {
+          amount?: number
+          booking_date: string
+          booking_ref: string
+          charger_id?: string | null
+          created_at?: string
+          duration_minutes?: number
+          id?: string
+          payment_method?: string
+          property_id: string
+          status?: string
+          time_slot: string
+          user_id: string
+        }
+        Update: {
+          amount?: number
+          booking_date?: string
+          booking_ref?: string
+          charger_id?: string | null
+          created_at?: string
+          duration_minutes?: number
+          id?: string
+          payment_method?: string
+          property_id?: string
+          status?: string
+          time_slot?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "bookings_charger_id_fkey"
+            columns: ["charger_id"]
+            isOneToOne: false
+            referencedRelation: "chargers"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "bookings_property_id_fkey"
+            columns: ["property_id"]
+            isOneToOne: false
+            referencedRelation: "properties"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      chargers: {
+        Row: {
+          charger_type: string
+          connector_type: string
+          created_at: string
+          id: string
+          label: string
+          power_kw: number
+          price: number
+          property_id: string
+          status: string
+        }
+        Insert: {
+          charger_type?: string
+          connector_type?: string
+          created_at?: string
+          id?: string
+          label: string
+          power_kw?: number
+          price?: number
+          property_id: string
+          status?: string
+        }
+        Update: {
+          charger_type?: string
+          connector_type?: string
+          created_at?: string
+          id?: string
+          label?: string
+          power_kw?: number
+          price?: number
+          property_id?: string
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "chargers_property_id_fkey"
+            columns: ["property_id"]
+            isOneToOne: false
+            referencedRelation: "properties"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      contact_messages: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+          message: string
+          name: string
+          subject: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id?: string
+          message: string
+          name: string
+          subject?: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+          message?: string
+          name?: string
+          subject?: string
+        }
+        Relationships: []
+      }
+      partner_applications: {
+        Row: {
+          address: string
+          business_name: string
+          category: string
+          city: string
+          contact_name: string
+          created_at: string
+          email: string
+          id: string
+          message: string
+          parking_slots: number
+          phone: string
+          status: string
+          user_id: string | null
+        }
+        Insert: {
+          address?: string
+          business_name: string
+          category: string
+          city: string
+          contact_name: string
+          created_at?: string
+          email: string
+          id?: string
+          message?: string
+          parking_slots?: number
+          phone: string
+          status?: string
+          user_id?: string | null
+        }
+        Update: {
+          address?: string
+          business_name?: string
+          category?: string
+          city?: string
+          contact_name?: string
+          created_at?: string
+          email?: string
+          id?: string
+          message?: string
+          parking_slots?: number
+          phone?: string
+          status?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      properties: {
+        Row: {
+          address: string
+          amenities: string[]
+          approved: boolean
+          available_slots: number
+          category: string
+          charger_type: string
+          city: string
+          created_at: string
+          description: string
+          id: string
+          images: string[]
+          latitude: number
+          longitude: number
+          name: string
+          open_status: string
+          owner_id: string | null
+          power_kw: number
+          price: number
+          rating: number
+          status: string
+          total_slots: number
+        }
+        Insert: {
+          address: string
+          amenities?: string[]
+          approved?: boolean
+          available_slots?: number
+          category: string
+          charger_type?: string
+          city?: string
+          created_at?: string
+          description?: string
+          id?: string
+          images?: string[]
+          latitude: number
+          longitude: number
+          name: string
+          open_status?: string
+          owner_id?: string | null
+          power_kw?: number
+          price?: number
+          rating?: number
+          status?: string
+          total_slots?: number
+        }
+        Update: {
+          address?: string
+          amenities?: string[]
+          approved?: boolean
+          available_slots?: number
+          category?: string
+          charger_type?: string
+          city?: string
+          created_at?: string
+          description?: string
+          id?: string
+          images?: string[]
+          latitude?: number
+          longitude?: number
+          name?: string
+          open_status?: string
+          owner_id?: string | null
+          power_kw?: number
+          price?: number
+          rating?: number
+          status?: string
+          total_slots?: number
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "partner" | "user"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +427,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "partner", "user"],
+    },
   },
 } as const
