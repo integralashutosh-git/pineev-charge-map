@@ -17,7 +17,7 @@ function MapSkeleton({ className = "size-full" }: { className?: string }) {
 
 /** SSR-safe wrapper: Google Maps and the clusterer only load in the browser. */
 export function MapPanel(props: MapPanelProps) {
-  const fallback = <MapSkeleton className={props.className} />;
+  const fallback = <MapSkeleton className={props.className ?? "size-full"} />;
   return (
     <ClientOnly fallback={fallback}>
       <Suspense fallback={fallback}>
