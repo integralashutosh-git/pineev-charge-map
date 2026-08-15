@@ -17,6 +17,7 @@ import { Route as ContactRouteImport } from './routes/contact'
 import { Route as FindRouteImport } from './routes/find'
 import { Route as PartnerRouteImport } from './routes/partner'
 import { Route as AuthenticatedBookingsRouteImport } from './routes/_authenticated/bookings'
+import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as PropertyIdRouteImport } from './routes/property.$id'
 
 const IndexRoute = IndexRouteImport.update({
@@ -58,6 +59,11 @@ const AuthenticatedBookingsRoute = AuthenticatedBookingsRouteImport.update({
   path: '/bookings',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const PropertyIdRoute = PropertyIdRouteImport.update({
   id: '/property/$id',
   path: '/property/$id',
@@ -72,6 +78,7 @@ export interface FileRoutesByFullPath {
   '/find': typeof FindRoute
   '/partner': typeof PartnerRoute
   '/bookings': typeof AuthenticatedBookingsRoute
+  '/dashboard': typeof AuthenticatedDashboardRoute
   '/property/$id': typeof PropertyIdRoute
 }
 export interface FileRoutesByTo {
@@ -82,6 +89,7 @@ export interface FileRoutesByTo {
   '/find': typeof FindRoute
   '/partner': typeof PartnerRoute
   '/bookings': typeof AuthenticatedBookingsRoute
+  '/dashboard': typeof AuthenticatedDashboardRoute
   '/property/$id': typeof PropertyIdRoute
 }
 export interface FileRoutesById {
@@ -94,6 +102,7 @@ export interface FileRoutesById {
   '/find': typeof FindRoute
   '/partner': typeof PartnerRoute
   '/_authenticated/bookings': typeof AuthenticatedBookingsRoute
+  '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/property/$id': typeof PropertyIdRoute
 }
 export interface FileRouteTypes {
@@ -106,6 +115,7 @@ export interface FileRouteTypes {
     | '/find'
     | '/partner'
     | '/bookings'
+    | '/dashboard'
     | '/property/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -116,6 +126,7 @@ export interface FileRouteTypes {
     | '/find'
     | '/partner'
     | '/bookings'
+    | '/dashboard'
     | '/property/$id'
   id:
     | '__root__'
@@ -127,6 +138,7 @@ export interface FileRouteTypes {
     | '/find'
     | '/partner'
     | '/_authenticated/bookings'
+    | '/_authenticated/dashboard'
     | '/property/$id'
   fileRoutesById: FileRoutesById
 }
@@ -199,6 +211,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedBookingsRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/dashboard': {
+      id: '/_authenticated/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof AuthenticatedDashboardRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/property/$id': {
       id: '/property/$id'
       path: '/property/$id'
@@ -211,10 +230,12 @@ declare module '@tanstack/react-router' {
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedBookingsRoute: typeof AuthenticatedBookingsRoute
+  AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedBookingsRoute: AuthenticatedBookingsRoute,
+  AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =
