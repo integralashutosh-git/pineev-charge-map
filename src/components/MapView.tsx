@@ -56,7 +56,12 @@ export default function MapView({
   const [error, setError] = useState<string | null>(null);
   const [blocked, setBlocked] = useState(() => mapsAuthFailed());
 
-  useEffect(() => onMapsAuthFailure(() => setBlocked(true)), []);
+  useEffect(() => {
+    const unsubscribe = onMapsAuthFailure(() => setBlocked(true));
+    return () => {
+      unsubscribe();
+    };
+  }, []);
 
   useEffect(() => {
     let cancelled = false;
