@@ -159,9 +159,6 @@
   --sidebar-ring: oklch(0.36 0.185 271.5);
 }
 
-/* Dark theme values, shared by the .dark class and system preference */
-@custom-variant _unused (&);
-
 .dark {
   --background: oklch(0.17 0.035 275);
   --foreground: oklch(0.975 0.005 275);
