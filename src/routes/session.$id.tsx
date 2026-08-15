@@ -68,7 +68,12 @@ function SessionPage() {
         </p>
 
         <section className="mt-6 flex flex-col items-center rounded-2xl border border-border bg-card card-pad elev-3">
-          <ProgressRing value={percent} size={220} label={`${percent}%`} sub={`${delivered.toFixed(1)} kWh`} />
+          <ProgressRing
+            progress={percent / 100}
+            size={220}
+            value={`${percent}%`}
+            sub={`${delivered.toFixed(1)} kWh`}
+          />
 
           <div className="mt-6 grid w-full grid-cols-3 gap-3">
             <Stat icon={Zap} label={t("session.delivered")} value={`${delivered.toFixed(1)} kWh`} />
