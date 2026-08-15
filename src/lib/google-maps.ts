@@ -12,6 +12,13 @@ export function mapsAuthFailed() {
   return authFailed;
 }
 
+/** Flag the key as rejected for this domain so every map switches to the fallback. */
+export function markMapsBlocked() {
+  if (authFailed) return;
+  authFailed = true;
+  authListeners.forEach((cb) => cb());
+}
+
 /** Subscribe to Google Maps key/domain rejection. */
 export function onMapsAuthFailure(cb: () => void) {
   if (authFailed) cb();

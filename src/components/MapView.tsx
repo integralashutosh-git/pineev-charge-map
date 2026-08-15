@@ -4,6 +4,7 @@ import {
   loadGoogleMaps,
   mapsAuthFailed,
   onMapsAuthFailure,
+  markMapsBlocked,
   MAP_STYLES,
   pinIcon,
   userDotIcon,
@@ -84,6 +85,19 @@ export default function MapView({
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // Google shows an in-map error panel for RefererNotAllowedMapError without
+  // calling gm_authFailure — detect it and swap in the keyless fallback map.
+  useEffect(() => {
+    if (!ready) return;
+    const timer = window.setTimeout(() => {
+      const el = containerRef.current;
+      if (!el) return;
+      const errored = el.querySelector(".gm-err-container");
+      if (errored) markMapsBlocked();
+    }, 2200);
+    return () => window.clearTimeout(timer);
+  }, [ready]);
 
   // markers
   useEffect(() => {
