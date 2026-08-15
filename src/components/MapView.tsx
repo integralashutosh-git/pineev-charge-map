@@ -1,6 +1,15 @@
 import { useEffect, useRef, useState } from "react";
 import type { MarkerClusterer } from "@googlemaps/markerclusterer";
-import { loadGoogleMaps, MAP_STYLES, pinIcon, userDotIcon } from "@/lib/google-maps";
+import {
+  loadGoogleMaps,
+  mapsAuthFailed,
+  onMapsAuthFailure,
+  markMapsBlocked,
+  MAP_STYLES,
+  pinIcon,
+  userDotIcon,
+} from "@/lib/google-maps";
+import FallbackMap from "./FallbackMap";
 import { DEFAULT_CENTER, statusColor, type Property } from "@/lib/pineev";
 
 
@@ -45,6 +54,9 @@ export default function MapView({
   const userMarkerRef = useRef<google.maps.Marker | null>(null);
   const [ready, setReady] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [blocked, setBlocked] = useState(() => mapsAuthFailed());
+
+  useEffect(() => onMapsAuthFailure(() => setBlocked(true)), []);
 
   useEffect(() => {
     let cancelled = false;
@@ -73,6 +85,19 @@ export default function MapView({
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // Google shows an in-map error panel for RefererNotAllowedMapError without
+  // calling gm_authFailure — detect it and swap in the keyless fallback map.
+  useEffect(() => {
+    if (!ready) return;
+    const timer = window.setTimeout(() => {
+      const el = containerRef.current;
+      if (!el) return;
+      const errored = el.querySelector(".gm-err-container");
+      if (errored) markMapsBlocked();
+    }, 2200);
+    return () => window.clearTimeout(timer);
+  }, [ready]);
 
   // markers
   useEffect(() => {
@@ -174,6 +199,24 @@ export default function MapView({
     }
   }, [ready, focus]);
 
+
+  if (blocked || error) {
+    return (
+      <FallbackMap
+        properties={properties}
+        selectedId={selectedId}
+        onSelect={onSelect}
+        userLocation={userLocation}
+        focus={focus}
+        zoom={zoom}
+        className={className}
+        interactive={interactive}
+        colorFor={colorFor}
+        fitPoints={fitPoints}
+        fitKey={fitKey}
+      />
+    );
+  }
 
   const hasPosition = /(?:^|\s)(?:absolute|fixed|relative|sticky)(?:\s|$)/.test(className);
 
