@@ -146,13 +146,33 @@ export default function MapView({
     }
   }, [ready, userLocation]);
 
-  // pan to focus
+  // fit user + nearby stations into view
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!ready || !map || !fitPoints || fitPoints.length < 2) return;
+    const bounds = new google.maps.LatLngBounds();
+    fitPoints.forEach((point) => bounds.extend(point));
+    map.fitBounds(bounds, 64);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ready, fitKey]);
+
+  // smooth zoom to focus
   useEffect(() => {
     const map = mapRef.current;
     if (!ready || !map || !focus) return;
     map.panTo(focus);
-    if ((map.getZoom() ?? 0) < 13) map.setZoom(14);
+    const current = map.getZoom() ?? 0;
+    if (current < 15) {
+      let next = Math.max(current, 12);
+      const step = () => {
+        next += 1;
+        map.setZoom(next);
+        if (next < 15) window.setTimeout(step, 110);
+      };
+      window.setTimeout(step, 160);
+    }
   }, [ready, focus]);
+
 
   return (
     <div className={`relative ${className}`}>
