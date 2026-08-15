@@ -2,7 +2,7 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 import { ArrowLeft, Navigation, Star, Zap, Clock, MapPin, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import MapView from "@/components/MapView";
+import { MapPanel } from "@/components/MapPanel";
 import { BookingFlow } from "@/components/BookingFlow";
 import { getPropertyDetail } from "@/lib/catalog.functions";
 import {
@@ -169,7 +169,7 @@ function PropertyDetail() {
         {/* Map + directions */}
         <div className="mt-6 overflow-hidden rounded-4xl border border-border bg-card shadow-soft">
           <div className="h-56 w-full sm:h-72">
-            <MapView
+            <MapPanel
               properties={[property]}
               selectedId={property.id}
               focus={position}

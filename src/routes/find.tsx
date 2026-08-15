@@ -13,7 +13,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import MapView from "@/components/MapView";
+import { MapPanel } from "@/components/MapPanel";
 import { listProperties } from "@/lib/catalog.functions";
 import {
   FILTERS,
@@ -109,7 +109,7 @@ function FindPage() {
 
   return (
     <div className="relative h-screen w-full overflow-hidden bg-surface">
-      <MapView
+      <MapPanel
         properties={results}
         selectedId={selectedId}
         onSelect={(id) => {
