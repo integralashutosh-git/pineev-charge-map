@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useSuspenseQuery, queryOptions } from "@tanstack/react-query";
 import { Search, Zap, ShieldCheck, Clock, MapPin, Star, ArrowRight } from "lucide-react";
 import { SiteHeader } from "@/components/SiteHeader";
+import { MapPanel } from "@/components/MapPanel";
 import { SiteFooter } from "@/components/SiteFooter";
 import { Button } from "@/components/ui/button";
 import { listProperties } from "@/lib/catalog.functions";
@@ -21,13 +22,13 @@ const propertiesQuery = queryOptions({
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "PineEv — Find it. Reserve it. Charge it." },
+      { title: "PineEV — Find it. Reserve it. Charge it." },
       {
         name: "description",
         content:
-          "PineEv connects EV drivers with verified hotels, cafés, dhabas and offices to reserve parking and charging in seconds.",
+          "PineEV connects EV drivers with verified hotels, cafés, dhabas and offices to reserve parking and charging in seconds.",
       },
-      { property: "og:title", content: "PineEv — Find it. Reserve it. Charge it." },
+      { property: "og:title", content: "PineEV — Find it. Reserve it. Charge it." },
       {
         property: "og:description",
         content:
@@ -88,7 +89,7 @@ function Landing() {
                 </span>
               </h1>
               <p className="mt-5 max-w-md text-base text-muted-foreground sm:text-lg">
-                PineEv connects EV drivers with verified commercial properties — hotels, cafés,
+                PineEV connects EV drivers with verified commercial properties — hotels, cafés,
                 dhabas and offices — to reserve parking and charging in a few taps.
               </p>
               <div className="mt-7 flex flex-wrap gap-3">
@@ -160,7 +161,7 @@ function Landing() {
         {/* How it works */}
         <section className="border-y border-border bg-surface">
           <div className="mx-auto w-full max-w-6xl px-4 py-14 sm:px-6">
-            <h2 className="text-center text-3xl font-bold tracking-tight">How PineEv works</h2>
+            <h2 className="text-center text-3xl font-bold tracking-tight">How PineEV works</h2>
             <p className="mx-auto mt-3 max-w-lg text-center text-sm text-muted-foreground">
               Three taps between you and a guaranteed charging bay.
             </p>

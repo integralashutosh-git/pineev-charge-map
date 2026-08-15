@@ -22,13 +22,13 @@ import { CATEGORIES, formatINR, statusClasses, statusLabel } from "@/lib/pineev"
 export const Route = createFileRoute("/_authenticated/dashboard")({
   head: () => ({
     meta: [
-      { title: "Business dashboard — PineEv partners" },
+      { title: "Business dashboard — PineEV partners" },
       {
         name: "description",
-        content: "Track bookings, revenue and slot availability for your PineEv charging listings.",
+        content: "Track bookings, revenue and slot availability for your PineEV charging listings.",
       },
-      { property: "og:title", content: "Business dashboard — PineEv" },
-      { property: "og:description", content: "Your PineEv partner performance at a glance." },
+      { property: "og:title", content: "Business dashboard — PineEV" },
+      { property: "og:description", content: "Your PineEV partner performance at a glance." },
       { name: "robots", content: "noindex" },
     ],
   }),

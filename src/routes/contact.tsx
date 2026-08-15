@@ -14,16 +14,16 @@ import { submitContactMessage } from "@/lib/catalog.functions";
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
-      { title: "Contact PineEv — support for drivers and partners" },
+      { title: "Contact PineEV — support for drivers and partners" },
       {
         name: "description",
         content:
-          "Questions about a booking, a charger or a partnership? Reach the PineEv team and we'll reply within one business day.",
+          "Questions about a booking, a charger or a partnership? Reach the PineEV team and we'll reply within one business day.",
       },
-      { property: "og:title", content: "Contact PineEv" },
+      { property: "og:title", content: "Contact PineEV" },
       {
         property: "og:description",
-        content: "Support for EV drivers and property partners on PineEv.",
+        content: "Support for EV drivers and property partners on PineEV.",
       },
     ],
   }),

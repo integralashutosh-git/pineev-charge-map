@@ -57,13 +57,13 @@ const detailQuery = (id: string) =>
 export const Route = createFileRoute("/find")({
   head: () => ({
     meta: [
-      { title: "Find an EV charger near you — PineEv" },
+      { title: "Find an EV charger near you — PineEV" },
       {
         name: "description",
         content:
-          "Live map of verified PineEv charging destinations. Filter by fast DC, AC, hotels and dhabas, then reserve a slot instantly.",
+          "Live map of verified PineEV charging destinations. Filter by fast DC, AC, hotels and dhabas, then reserve a slot instantly.",
       },
-      { property: "og:title", content: "Find an EV charger near you — PineEv" },
+      { property: "og:title", content: "Find an EV charger near you — PineEV" },
       {
         property: "og:description",
         content: "Live availability, distance and pricing for verified EV charging hosts.",

@@ -15,16 +15,16 @@ import { CATEGORIES } from "@/lib/pineev";
 export const Route = createFileRoute("/partner")({
   head: () => ({
     meta: [
-      { title: "Become a PineEv partner — earn from your parking" },
+      { title: "Become a PineEV partner — earn from your parking" },
       {
         name: "description",
         content:
-          "List your hotel, café, dhaba or office parking on PineEv. Earn from every EV charging session and bring new customers in.",
+          "List your hotel, café, dhaba or office parking on PineEV. Earn from every EV charging session and bring new customers in.",
       },
-      { property: "og:title", content: "Become a PineEv partner" },
+      { property: "og:title", content: "Become a PineEV partner" },
       {
         property: "og:description",
-        content: "Turn idle parking into recurring EV charging revenue with PineEv.",
+        content: "Turn idle parking into recurring EV charging revenue with PineEV.",
       },
     ],
   }),
@@ -92,7 +92,7 @@ function PartnerPage() {
               </span>
             </h1>
             <p className="mt-4 text-base text-muted-foreground">
-              PineEv verifies your property, lists it on our live map and sends EV drivers your way
+              PineEV verifies your property, lists it on our live map and sends EV drivers your way
               with pre-paid reservations.
             </p>
           </div>

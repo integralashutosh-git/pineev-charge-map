@@ -11,13 +11,13 @@ import { directionsUrl, formatINR } from "@/lib/pineev";
 export const Route = createFileRoute("/_authenticated/bookings")({
   head: () => ({
     meta: [
-      { title: "My bookings — PineEv" },
+      { title: "My bookings — PineEV" },
       {
         name: "description",
-        content: "View, manage and cancel your reserved PineEv charging slots.",
+        content: "View, manage and cancel your reserved PineEV charging slots.",
       },
-      { property: "og:title", content: "My bookings — PineEv" },
-      { property: "og:description", content: "Your reserved EV charging slots on PineEv." },
+      { property: "og:title", content: "My bookings — PineEV" },
+      { property: "og:description", content: "Your reserved EV charging slots on PineEV." },
       { name: "robots", content: "noindex" },
     ],
   }),

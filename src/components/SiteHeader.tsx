@@ -21,7 +21,7 @@ export function SiteHeader() {
       <div className="mx-auto flex h-16 w-full max-w-6xl items-center gap-3 px-4 sm:px-6">
         <Link to="/" className="flex items-center gap-2.5">
           <PineLogo className="h-9 w-9" />
-          <span className="font-display text-lg font-bold tracking-tight">PineEv</span>
+          <span className="font-display text-lg font-bold tracking-tight">PineEV</span>
         </Link>
 
         <nav className="ml-auto hidden items-center gap-1 md:flex">
