@@ -8,6 +8,7 @@ interface LusionButtonProps {
   onClick?: (() => void) | undefined;
   variant?: "amber" | "primary" | "outline";
   className?: string | undefined;
+  disabled?: boolean | undefined;
 }
 
 /**
@@ -20,6 +21,7 @@ export function LusionButton({
   onClick,
   variant = "amber",
   className,
+  disabled,
 }: LusionButtonProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [hover, setHover] = useState(false);
@@ -67,7 +69,7 @@ export function LusionButton({
       onPointerMove={onMove}
       onPointerEnter={() => setHover(true)}
       onPointerLeave={reset}
-      className={`relative isolate inline-flex h-12 cursor-pointer items-center justify-center overflow-hidden rounded-full px-7 text-sm font-semibold transition-shadow duration-300 elev-2 hover:elev-3 ${base} ${className ?? ""}`}
+      className={`relative isolate inline-flex h-12 cursor-pointer items-center justify-center overflow-hidden rounded-full px-7 text-sm font-semibold transition-shadow duration-300 elev-2 hover:elev-3 ${base} ${disabled ? "pointer-events-none opacity-50" : ""} ${className ?? ""}`}
     >
       <span
         aria-hidden
@@ -101,7 +103,7 @@ export function LusionButton({
     );
   }
   return (
-    <button type="button" onClick={onClick} className="inline-flex">
+    <button type="button" onClick={onClick} disabled={disabled} className="inline-flex disabled:cursor-not-allowed">
       {inner}
     </button>
   );

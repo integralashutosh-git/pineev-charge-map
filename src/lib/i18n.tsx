@@ -82,6 +82,12 @@ const DICT = {
     "detail.directions": "Directions",
 
     "book.title": "Book a slot",
+    "book.step1": "Vehicle",
+    "book.step2": "Date & time",
+    "book.step3": "Review & pay",
+    "book.when": "When",
+    "book.simulated": "Payments are simulated in this demo.",
+    "book.pay": "Pay & confirm",
     "book.vehicle": "Your vehicle",
     "book.connector": "Connector",
     "book.date": "Date",
@@ -123,6 +129,8 @@ const DICT = {
     "common.perKwh": "per kWh",
     "common.away": "away",
     "common.back": "Back",
+    "common.continue": "Continue",
+    "common.error": "Something went wrong. Please try again.",
     "common.loading": "Loading…",
   },
   hi: {
@@ -194,6 +202,12 @@ const DICT = {
     "detail.directions": "रास्ता",
 
     "book.title": "स्लॉट बुक करें",
+    "book.step1": "गाड़ी",
+    "book.step2": "तारीख और समय",
+    "book.step3": "समीक्षा और भुगतान",
+    "book.when": "कब",
+    "book.simulated": "इस डेमो में भुगतान सिम्युलेटेड है।",
+    "book.pay": "भुगतान करें",
     "book.vehicle": "आपकी गाड़ी",
     "book.connector": "कनेक्टर",
     "book.date": "तारीख",
@@ -235,6 +249,8 @@ const DICT = {
     "common.perKwh": "प्रति kWh",
     "common.away": "दूर",
     "common.back": "वापस",
+    "common.continue": "आगे बढ़ें",
+    "common.error": "कुछ गड़बड़ हो गई। दोबारा कोशिश करें।",
     "common.loading": "लोड हो रहा है…",
   },
 } as const;
