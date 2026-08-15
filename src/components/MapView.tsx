@@ -175,8 +175,10 @@ export default function MapView({
   }, [ready, focus]);
 
 
+  const hasPosition = /(?:^|\s)(?:absolute|fixed|relative|sticky)(?:\s|$)/.test(className);
+
   return (
-    <div className={`relative ${className}`}>
+    <div className={`${hasPosition ? "" : "relative"} ${className}`}>
       <div ref={containerRef} className="size-full" />
       {!ready ? (
         <div className="absolute inset-0 flex items-center justify-center bg-surface">
