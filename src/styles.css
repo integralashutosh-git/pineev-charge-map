@@ -334,6 +334,19 @@
   padding-bottom: var(--section-padding);
 }
 
+/* Consistent page gutters for every full-width container */
+@utility pad-x {
+  padding-inline: 20px;
+  @media (min-width: 640px) {
+    padding-inline: 32px;
+  }
+  @media (min-width: 1024px) {
+    padding-inline: 40px;
+  }
+}
+
+
+
 @utility card-pad {
   padding: var(--card-padding);
 }
