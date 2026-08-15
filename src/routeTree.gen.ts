@@ -22,6 +22,7 @@ import { Route as AuthenticatedDashboardRouteImport } from './routes/_authentica
 import { Route as BookChargerIdRouteImport } from './routes/book.$chargerId'
 import { Route as ChargingPointIdRouteImport } from './routes/charging-point.$id'
 import { Route as PropertyIdRouteImport } from './routes/property.$id'
+import { Route as SessionIdRouteImport } from './routes/session.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -87,6 +88,11 @@ const PropertyIdRoute = PropertyIdRouteImport.update({
   path: '/property/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SessionIdRoute = SessionIdRouteImport.update({
+  id: '/session/$id',
+  path: '/session/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -101,6 +107,7 @@ export interface FileRoutesByFullPath {
   '/book/$chargerId': typeof BookChargerIdRoute
   '/charging-point/$id': typeof ChargingPointIdRoute
   '/property/$id': typeof PropertyIdRoute
+  '/session/$id': typeof SessionIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -115,6 +122,7 @@ export interface FileRoutesByTo {
   '/book/$chargerId': typeof BookChargerIdRoute
   '/charging-point/$id': typeof ChargingPointIdRoute
   '/property/$id': typeof PropertyIdRoute
+  '/session/$id': typeof SessionIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -131,6 +139,7 @@ export interface FileRoutesById {
   '/book/$chargerId': typeof BookChargerIdRoute
   '/charging-point/$id': typeof ChargingPointIdRoute
   '/property/$id': typeof PropertyIdRoute
+  '/session/$id': typeof SessionIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -147,6 +156,7 @@ export interface FileRouteTypes {
     | '/book/$chargerId'
     | '/charging-point/$id'
     | '/property/$id'
+    | '/session/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -161,6 +171,7 @@ export interface FileRouteTypes {
     | '/book/$chargerId'
     | '/charging-point/$id'
     | '/property/$id'
+    | '/session/$id'
   id:
     | '__root__'
     | '/'
@@ -176,6 +187,7 @@ export interface FileRouteTypes {
     | '/book/$chargerId'
     | '/charging-point/$id'
     | '/property/$id'
+    | '/session/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -190,6 +202,7 @@ export interface RootRouteChildren {
   BookChargerIdRoute: typeof BookChargerIdRoute
   ChargingPointIdRoute: typeof ChargingPointIdRoute
   PropertyIdRoute: typeof PropertyIdRoute
+  SessionIdRoute: typeof SessionIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -285,6 +298,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PropertyIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/session/$id': {
+      id: '/session/$id'
+      path: '/session/$id'
+      fullPath: '/session/$id'
+      preLoaderRoute: typeof SessionIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -313,6 +333,7 @@ const rootRouteChildren: RootRouteChildren = {
   BookChargerIdRoute: BookChargerIdRoute,
   ChargingPointIdRoute: ChargingPointIdRoute,
   PropertyIdRoute: PropertyIdRoute,
+  SessionIdRoute: SessionIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
