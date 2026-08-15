@@ -102,8 +102,9 @@ export default function MapView({
         existing.set(property.id, marker);
         created.push(marker);
       }
-      marker.setIcon(pinIcon(statusColor(property.status), selected));
+      marker.setIcon(pinIcon(colorFor?.(property) ?? statusColor(property.status), selected));
       marker.setZIndex(selected ? 999 : 1);
+
     }
 
     if (cluster) {
