@@ -99,7 +99,7 @@ function PropertyDetail() {
         </Link>
       </div>
 
-      <div className="mx-auto w-full max-w-5xl px-4 sm:px-6">
+      <div className="mx-auto w-full max-w-5xl pad-x">
         <div className="-mt-8 rounded-4xl border border-border bg-card p-5 shadow-float sm:p-7">
           <div className="flex flex-wrap items-center gap-2">
             <span

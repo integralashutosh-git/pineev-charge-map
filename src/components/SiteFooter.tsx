@@ -4,7 +4,7 @@ import { PineLogo } from "./PineLogo";
 export function SiteFooter() {
   return (
     <footer className="border-t border-border bg-surface">
-      <div className="mx-auto grid w-full max-w-6xl gap-8 px-4 py-12 sm:px-6 md:grid-cols-4">
+      <div className="mx-auto grid w-full max-w-6xl gap-10 pad-x py-12 md:py-14 md:grid-cols-4">
         <div className="md:col-span-2">
           <div className="flex items-center gap-2.5">
             <PineLogo className="h-9 w-9" />

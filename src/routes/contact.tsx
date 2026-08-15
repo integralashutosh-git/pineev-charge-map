@@ -44,7 +44,7 @@ function ContactPage() {
     <div className="flex min-h-screen flex-col">
       <SiteHeader />
       <main className="flex-1">
-        <section className="mx-auto grid w-full max-w-5xl gap-8 px-4 py-14 sm:px-6 md:grid-cols-5">
+        <section className="mx-auto grid w-full max-w-5xl gap-8 pad-x section-y md:grid-cols-5">
           <div className="md:col-span-2">
             <h1 className="text-4xl font-bold leading-tight tracking-tight">Talk to us</h1>
             <p className="mt-4 text-sm text-muted-foreground">
