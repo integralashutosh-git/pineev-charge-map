@@ -73,7 +73,7 @@ function Landing() {
         <section className="relative overflow-hidden">
           <div className="pointer-events-none absolute -left-24 -top-24 size-72 rounded-full bg-primary/15 blur-3xl" />
           <div className="pointer-events-none absolute -right-24 top-24 size-72 rounded-full bg-accent/15 blur-3xl" />
-          <div className="mx-auto grid w-full max-w-6xl items-center gap-10 px-4 py-14 sm:px-6 md:grid-cols-2 md:py-20">
+          <div className="mx-auto grid w-full max-w-6xl items-center gap-10 pad-x section-y md:grid-cols-2">
             <div className="animate-rise">
               <span className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1.5 text-xs font-semibold text-muted-foreground shadow-soft">
                 <span className="size-2 rounded-full bg-primary" />
@@ -160,7 +160,7 @@ function Landing() {
 
         {/* How it works */}
         <section className="border-y border-border bg-surface">
-          <div className="mx-auto w-full max-w-6xl px-4 py-14 sm:px-6">
+          <div className="mx-auto w-full max-w-6xl pad-x section-y">
             <h2 className="text-center text-3xl font-bold tracking-tight">How PineEV works</h2>
             <p className="mx-auto mt-3 max-w-lg text-center text-sm text-muted-foreground">
               Three taps between you and a guaranteed charging bay.
@@ -186,7 +186,7 @@ function Landing() {
         </section>
 
         {/* Featured */}
-        <section className="mx-auto w-full max-w-6xl px-4 py-14 sm:px-6">
+        <section className="mx-auto w-full max-w-6xl pad-x section-y">
           <div className="flex items-end justify-between gap-4">
             <div>
               <h2 className="text-3xl font-bold tracking-tight">Popular destinations</h2>
@@ -249,7 +249,7 @@ function Landing() {
         </section>
 
         {/* Partner CTA */}
-        <section className="mx-auto w-full max-w-6xl px-4 pb-16 sm:px-6">
+        <section className="mx-auto w-full max-w-6xl pad-x pb-14 md:pb-20">
           <div className="overflow-hidden rounded-4xl bg-gradient-to-br from-primary to-accent p-8 text-primary-foreground shadow-float sm:p-12">
             <div className="max-w-xl">
               <ShieldCheck className="size-8" />

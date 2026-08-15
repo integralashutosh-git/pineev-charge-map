@@ -80,7 +80,7 @@ function PartnerPage() {
     <div className="flex min-h-screen flex-col">
       <SiteHeader />
       <main className="flex-1">
-        <section className="mx-auto w-full max-w-6xl px-4 py-14 sm:px-6">
+        <section className="mx-auto w-full max-w-6xl pad-x section-y">
           <div className="max-w-2xl">
             <span className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1.5 text-xs font-semibold text-muted-foreground shadow-soft">
               For property owners
@@ -111,7 +111,7 @@ function PartnerPage() {
         </section>
 
         <section className="border-t border-border bg-surface">
-          <div className="mx-auto w-full max-w-3xl px-4 py-14 sm:px-6">
+          <div className="mx-auto w-full max-w-3xl pad-x section-y">
             {mutation.isSuccess ? (
               <div className="rounded-4xl border border-border bg-card p-8 text-center shadow-float">
                 <CheckCircle2 className="mx-auto size-12 text-primary" />

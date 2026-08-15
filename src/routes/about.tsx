@@ -51,7 +51,7 @@ function AboutPage() {
     <div className="flex min-h-screen flex-col">
       <SiteHeader />
       <main className="flex-1">
-        <section className="mx-auto w-full max-w-4xl px-4 py-16 sm:px-6">
+        <section className="mx-auto w-full max-w-4xl pad-x section-y">
           <h1 className="text-4xl font-bold leading-tight tracking-tight sm:text-5xl">
             We're making EV charging{" "}
             <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">

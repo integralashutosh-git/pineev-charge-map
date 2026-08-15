@@ -29,7 +29,10 @@
     "Be Vietnam Pro", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-display: "Be Vietnam Pro", ui-sans-serif, system-ui, sans-serif;
 
-  --spacing: 8px;
+  /* Tailwind's spacing unit stays at 0.25rem so the 8px rhythm maps to
+     even-numbered utilities (p-2 = 8px, p-4 = 16px, p-6 = 24px...). */
+
+
 
   --color-warning: var(--warning);
   --color-warning-foreground: var(--warning-foreground);
@@ -330,6 +333,19 @@
   padding-top: var(--section-padding);
   padding-bottom: var(--section-padding);
 }
+
+/* Consistent page gutters for every full-width container */
+@utility pad-x {
+  padding-inline: 20px;
+  @media (min-width: 640px) {
+    padding-inline: 32px;
+  }
+  @media (min-width: 1024px) {
+    padding-inline: 40px;
+  }
+}
+
+
 
 @utility card-pad {
   padding: var(--card-padding);
