@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from "react";
-import { MarkerClusterer } from "@googlemaps/markerclusterer";
+import type { MarkerClusterer } from "@googlemaps/markerclusterer";
 import { loadGoogleMaps, MAP_STYLES, pinIcon, userDotIcon } from "@/lib/google-maps";
 import { DEFAULT_CENTER, statusColor, type Property } from "@/lib/pineev";
+
 
 interface MapViewProps {
   properties: Property[];
