@@ -1,6 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 import type { MarkerClusterer } from "@googlemaps/markerclusterer";
-import { loadGoogleMaps, MAP_STYLES, pinIcon, userDotIcon } from "@/lib/google-maps";
+import {
+  loadGoogleMaps,
+  mapsAuthFailed,
+  onMapsAuthFailure,
+  MAP_STYLES,
+  pinIcon,
+  userDotIcon,
+} from "@/lib/google-maps";
+import FallbackMap from "./FallbackMap";
 import { DEFAULT_CENTER, statusColor, type Property } from "@/lib/pineev";
 
 
@@ -45,6 +53,9 @@ export default function MapView({
   const userMarkerRef = useRef<google.maps.Marker | null>(null);
   const [ready, setReady] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [blocked, setBlocked] = useState(() => mapsAuthFailed());
+
+  useEffect(() => onMapsAuthFailure(() => setBlocked(true)), []);
 
   useEffect(() => {
     let cancelled = false;
@@ -174,6 +185,24 @@ export default function MapView({
     }
   }, [ready, focus]);
 
+
+  if (blocked || error) {
+    return (
+      <FallbackMap
+        properties={properties}
+        selectedId={selectedId}
+        onSelect={onSelect}
+        userLocation={userLocation}
+        focus={focus}
+        zoom={zoom}
+        className={className}
+        interactive={interactive}
+        colorFor={colorFor}
+        fitPoints={fitPoints}
+        fitKey={fitKey}
+      />
+    );
+  }
 
   const hasPosition = /(?:^|\s)(?:absolute|fixed|relative|sticky)(?:\s|$)/.test(className);
 

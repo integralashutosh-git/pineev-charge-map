@@ -4,6 +4,21 @@ let loaderPromise: Promise<typeof google.maps> | null = null;
 
 const CALLBACK_NAME = "__pineevMapsReady";
 
+let authFailed = false;
+const authListeners = new Set<() => void>();
+
+/** True when Google rejected the key for this domain (RefererNotAllowedMapError). */
+export function mapsAuthFailed() {
+  return authFailed;
+}
+
+/** Subscribe to Google Maps key/domain rejection. */
+export function onMapsAuthFailure(cb: () => void) {
+  if (authFailed) cb();
+  authListeners.add(cb);
+  return () => authListeners.delete(cb);
+}
+
 /** Loads the Google Maps JS API once, asynchronously, in the browser. */
 export function loadGoogleMaps(): Promise<typeof google.maps> {
   if (typeof window === "undefined") {
@@ -22,6 +37,11 @@ export function loadGoogleMaps(): Promise<typeof google.maps> {
   if (!key) {
     return Promise.reject(new Error("Google Maps key is not configured"));
   }
+
+  (window as unknown as Record<string, unknown>)["gm_authFailure"] = () => {
+    authFailed = true;
+    authListeners.forEach((cb) => cb());
+  };
 
   loaderPromise = new Promise<typeof google.maps>((resolve, reject) => {
     (window as unknown as Record<string, unknown>)[CALLBACK_NAME] = () => {
