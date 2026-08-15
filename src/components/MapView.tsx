@@ -98,11 +98,18 @@ export default function MapView({
 
     if (cluster) {
       if (!clustererRef.current) {
-        clustererRef.current = new MarkerClusterer({ map, markers: created });
+        void import("@googlemaps/markerclusterer").then((mod) => {
+          if (clustererRef.current) {
+            clustererRef.current.addMarkers(created);
+            return;
+          }
+          clustererRef.current = new mod.MarkerClusterer({ map, markers: created });
+        });
       } else if (created.length) {
         clustererRef.current.addMarkers(created);
       }
     } else {
+
       created.forEach((m) => m.setMap(map));
     }
   }, [ready, properties, selectedId, cluster, onSelect]);
