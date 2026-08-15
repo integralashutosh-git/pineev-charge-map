@@ -13,14 +13,14 @@ function latToWorldY(lat: number) {
 
 export interface FallbackMapProps {
   properties: Property[];
-  selectedId?: string | null;
-  onSelect?: (id: string) => void;
-  userLocation?: { lat: number; lng: number } | null;
-  focus?: { lat: number; lng: number } | null;
-  zoom?: number;
-  className?: string;
-  interactive?: boolean;
-  colorFor?: (property: Property) => string;
+  selectedId?: string | null | undefined;
+  onSelect?: ((id: string) => void) | undefined;
+  userLocation?: { lat: number; lng: number } | null | undefined;
+  focus?: { lat: number; lng: number } | null | undefined;
+  zoom?: number | undefined;
+  className?: string | undefined;
+  interactive?: boolean | undefined;
+  colorFor?: ((property: Property) => string) | undefined;
   fitPoints?: { lat: number; lng: number }[] | undefined;
   fitKey?: string | undefined;
 }
