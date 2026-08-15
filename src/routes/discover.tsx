@@ -10,7 +10,7 @@ import { MapPanel } from "@/components/MapPanel";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { useI18n } from "@/lib/i18n";
-import { bookingStateColor } from "@/lib/map-status";
+import { bookingState, bookingStateColor } from "@/lib/map-status";
 
 export const Route = createFileRoute("/discover")({
   head: () => ({
@@ -135,7 +135,7 @@ function DiscoverPage() {
               <MapPanel
                 properties={results}
                 userLocation={userLocation}
-                colorFor={bookingStateColor}
+                colorFor={(p) => bookingStateColor(bookingState(p))}
                 fitPoints={results.map((p) => ({ lat: p.latitude, lng: p.longitude }))}
                 fitKey={String(results.length)}
                 className="h-[560px] w-full"
