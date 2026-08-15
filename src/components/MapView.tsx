@@ -123,7 +123,7 @@ export default function MapView({
 
       created.forEach((m) => m.setMap(map));
     }
-  }, [ready, properties, selectedId, cluster, onSelect]);
+  }, [ready, properties, selectedId, cluster, onSelect, colorFor]);
 
   // user location marker
   useEffect(() => {
