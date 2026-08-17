@@ -6,9 +6,8 @@ export function SiteFooter() {
     <footer className="border-t border-border bg-surface">
       <div className="mx-auto grid w-full max-w-6xl gap-10 pad-x py-12 md:py-14 md:grid-cols-4">
         <div className="md:col-span-2">
-          <div className="flex items-center gap-2.5">
-            <PineLogo className="h-9 w-9" />
-            <span className="font-display text-lg font-bold">PineEV</span>
+          <div className="flex items-center">
+            <PineLogo className="h-7 w-auto" />
           </div>
           <p className="mt-3 max-w-sm text-sm text-muted-foreground">
             Find it. Reserve it. Charge it. PineEV connects EV drivers with verified commercial
