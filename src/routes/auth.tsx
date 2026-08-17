@@ -101,9 +101,8 @@ function AuthPage() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-surface pad-x section-y">
       <div className="w-full max-w-sm">
-        <Link to="/" className="mx-auto flex w-fit items-center gap-2.5">
-          <PineLogo className="h-10 w-10" />
-          <span className="font-display text-xl font-bold">PineEV</span>
+        <Link to="/" className="mx-auto block w-fit">
+          <PineLogo className="h-8 w-auto" />
         </Link>
         <p className="mt-2 text-center text-sm text-muted-foreground">
           Find it. Reserve it. Charge it.
