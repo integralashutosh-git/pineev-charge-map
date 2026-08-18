@@ -83,11 +83,7 @@ function PropertyDetail() {
       <div className="relative">
         <div className="aspect-[4/3] w-full overflow-hidden bg-muted sm:aspect-[21/9]">
           {property.images?.[0] ? (
-            <img
-              src={property.images[0]}
-              alt={property.name}
-              className="size-full object-cover"
-            />
+            <img src={property.images[0]} alt={property.name} className="size-full object-cover" />
           ) : null}
         </div>
         <Link
@@ -135,9 +131,7 @@ function PropertyDetail() {
             ].map((item) => (
               <div key={item.label} className="rounded-2xl bg-surface p-3.5">
                 <item.icon className="size-4 text-primary" />
-                <p className="mt-2 text-[11px] font-semibold text-muted-foreground">
-                  {item.label}
-                </p>
+                <p className="mt-2 text-[11px] font-semibold text-muted-foreground">{item.label}</p>
                 <p className="text-sm font-bold">{item.value}</p>
               </div>
             ))}

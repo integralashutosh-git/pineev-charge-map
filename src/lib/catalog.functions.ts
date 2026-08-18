@@ -1,10 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
-import {
-  createPublicClient,
-  PROPERTY_COLUMNS,
-  CHARGER_COLUMNS,
-} from "./supabase-public.server";
+import { createPublicClient, PROPERTY_COLUMNS, CHARGER_COLUMNS } from "./supabase-public.server";
 
 export const listProperties = createServerFn({ method: "GET" }).handler(async () => {
   const supabase = createPublicClient();
@@ -28,11 +24,7 @@ export const getPropertyDetail = createServerFn({ method: "GET" })
         .eq("id", data.id)
         .eq("approved", true)
         .maybeSingle(),
-      supabase
-        .from("chargers")
-        .select(CHARGER_COLUMNS)
-        .eq("property_id", data.id)
-        .order("label"),
+      supabase.from("chargers").select(CHARGER_COLUMNS).eq("property_id", data.id).order("label"),
     ]);
     if (property.error) throw new Error(property.error.message);
     if (chargers.error) throw new Error(chargers.error.message);

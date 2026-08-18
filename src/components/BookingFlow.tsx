@@ -105,7 +105,10 @@ export function BookingFlow({ property, chargers }: BookingFlowProps) {
         <p className="mt-4 font-display text-lg font-bold tracking-wide">{result.booking_ref}</p>
         <dl className="mx-auto mt-5 max-w-xs space-y-2 text-sm">
           {[
-            ["Date", new Date(result.booking_date).toLocaleDateString("en-IN", { dateStyle: "medium" })],
+            [
+              "Date",
+              new Date(result.booking_date).toLocaleDateString("en-IN", { dateStyle: "medium" }),
+            ],
             ["Time", result.time_slot],
             ["Paid", formatINR(Number(result.amount))],
           ].map(([label, value]) => (
@@ -133,7 +136,9 @@ export function BookingFlow({ property, chargers }: BookingFlowProps) {
     <div className="rounded-4xl border border-border bg-card p-5 shadow-float sm:p-7">
       <div className="flex items-center justify-between gap-3">
         <h2 className="text-lg font-bold">Reserve your bay</h2>
-        <span className={`rounded-full px-2.5 py-1 text-[11px] font-semibold ${statusClasses(property.status)}`}>
+        <span
+          className={`rounded-full px-2.5 py-1 text-[11px] font-semibold ${statusClasses(property.status)}`}
+        >
           {statusLabel(property.status)}
         </span>
       </div>
@@ -182,7 +187,9 @@ export function BookingFlow({ property, chargers }: BookingFlowProps) {
             type="button"
             onClick={() => setDate(day.value)}
             className={`shrink-0 rounded-2xl border px-4 py-2.5 text-center transition-colors ${
-              date === day.value ? "border-primary bg-primary text-primary-foreground" : "border-border"
+              date === day.value
+                ? "border-primary bg-primary text-primary-foreground"
+                : "border-border"
             }`}
           >
             <span className="block text-[11px] font-semibold opacity-80">{day.weekday}</span>
@@ -204,7 +211,9 @@ export function BookingFlow({ property, chargers }: BookingFlowProps) {
               disabled={isTaken}
               onClick={() => setSlot(item)}
               className={`rounded-2xl border px-2 py-2.5 text-xs font-semibold transition-colors disabled:cursor-not-allowed disabled:bg-muted disabled:text-muted-foreground disabled:line-through ${
-                slot === item ? "border-primary bg-primary text-primary-foreground" : "border-border"
+                slot === item
+                  ? "border-primary bg-primary text-primary-foreground"
+                  : "border-border"
               }`}
             >
               {item}
@@ -217,7 +226,12 @@ export function BookingFlow({ property, chargers }: BookingFlowProps) {
       <p className="mt-6 text-xs font-semibold text-muted-foreground">4 · Payment (simulated)</p>
       <div className="mt-2 grid gap-2 sm:grid-cols-2">
         {[
-          { id: "upi" as const, label: "UPI", hint: "Pay instantly via any UPI app", icon: Smartphone },
+          {
+            id: "upi" as const,
+            label: "UPI",
+            hint: "Pay instantly via any UPI app",
+            icon: Smartphone,
+          },
           { id: "card" as const, label: "Card", hint: "Visa, Mastercard, RuPay", icon: CreditCard },
         ].map((option) => (
           <button

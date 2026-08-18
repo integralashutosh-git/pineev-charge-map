@@ -207,7 +207,8 @@ function FindPage() {
     else setSnap((s) => (s === "full" ? "half" : "collapsed"));
   }
 
-  const visible = snap === "collapsed" ? results.slice(0, 1) : snap === "half" ? results.slice(0, 3) : results;
+  const visible =
+    snap === "collapsed" ? results.slice(0, 1) : snap === "half" ? results.slice(0, 3) : results;
 
   return (
     <div className="relative h-screen w-full overflow-hidden bg-surface">
@@ -487,7 +488,11 @@ function PropertyCard({ property, distance, expanded, onSelect, onBook }: CardPr
 
           <div className="mt-3 flex gap-2">
             {booked ? (
-              <Button size="sm" disabled className="flex-1 rounded-full bg-muted text-muted-foreground">
+              <Button
+                size="sm"
+                disabled
+                className="flex-1 rounded-full bg-muted text-muted-foreground"
+              >
                 Booked
               </Button>
             ) : (

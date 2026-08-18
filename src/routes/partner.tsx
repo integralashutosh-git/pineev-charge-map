@@ -71,9 +71,8 @@ function PartnerPage() {
   });
 
   function set(key: keyof typeof form) {
-    return (
-      e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
-    ) => setForm((prev) => ({ ...prev, [key]: e.target.value }));
+    return (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) =>
+      setForm((prev) => ({ ...prev, [key]: e.target.value }));
   }
 
   return (
@@ -99,7 +98,10 @@ function PartnerPage() {
 
           <div className="mt-10 grid gap-4 md:grid-cols-3">
             {BENEFITS.map((item) => (
-              <div key={item.title} className="rounded-3xl border border-border bg-card p-6 shadow-soft">
+              <div
+                key={item.title}
+                className="rounded-3xl border border-border bg-card p-6 shadow-soft"
+              >
                 <div className="flex size-11 items-center justify-center rounded-2xl bg-primary/10 text-primary">
                   <item.icon className="size-5" />
                 </div>
@@ -136,7 +138,12 @@ function PartnerPage() {
                   }}
                 >
                   <Field label="Business name">
-                    <Input required value={form.business_name} onChange={set("business_name")} className="rounded-xl" />
+                    <Input
+                      required
+                      value={form.business_name}
+                      onChange={set("business_name")}
+                      className="rounded-xl"
+                    />
                   </Field>
                   <Field label="Category">
                     <select
@@ -152,16 +159,38 @@ function PartnerPage() {
                     </select>
                   </Field>
                   <Field label="Contact person">
-                    <Input required value={form.contact_name} onChange={set("contact_name")} className="rounded-xl" />
+                    <Input
+                      required
+                      value={form.contact_name}
+                      onChange={set("contact_name")}
+                      className="rounded-xl"
+                    />
                   </Field>
                   <Field label="Phone">
-                    <Input required value={form.phone} onChange={set("phone")} className="rounded-xl" placeholder="+91 98765 43210" />
+                    <Input
+                      required
+                      value={form.phone}
+                      onChange={set("phone")}
+                      className="rounded-xl"
+                      placeholder="+91 98765 43210"
+                    />
                   </Field>
                   <Field label="Email">
-                    <Input required type="email" value={form.email} onChange={set("email")} className="rounded-xl" />
+                    <Input
+                      required
+                      type="email"
+                      value={form.email}
+                      onChange={set("email")}
+                      className="rounded-xl"
+                    />
                   </Field>
                   <Field label="City">
-                    <Input required value={form.city} onChange={set("city")} className="rounded-xl" />
+                    <Input
+                      required
+                      value={form.city}
+                      onChange={set("city")}
+                      className="rounded-xl"
+                    />
                   </Field>
                   <Field label="Address" className="sm:col-span-2">
                     <Input value={form.address} onChange={set("address")} className="rounded-xl" />

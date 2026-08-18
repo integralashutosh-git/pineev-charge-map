@@ -80,9 +80,11 @@ export default function FallbackMap({
     }
     setView((prev) => {
       if (prev) return prev;
-      const base = focus ?? (properties[0]
-        ? { lat: Number(properties[0].latitude), lng: Number(properties[0].longitude) }
-        : { lat: 20.5937, lng: 78.9629 });
+      const base =
+        focus ??
+        (properties[0]
+          ? { lat: Number(properties[0].latitude), lng: Number(properties[0].longitude) }
+          : { lat: 20.5937, lng: 78.9629 });
       return { ...base, z: zoom };
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -143,7 +145,10 @@ export default function FallbackMap({
     setView({
       ...view,
       lng: view.lng - (dx / scale) * 360,
-      lat: Math.max(-85, Math.min(85, view.lat + (dy / scale) * 360 * Math.cos((view.lat * Math.PI) / 180))),
+      lat: Math.max(
+        -85,
+        Math.min(85, view.lat + (dy / scale) * 360 * Math.cos((view.lat * Math.PI) / 180)),
+      ),
     });
   };
 

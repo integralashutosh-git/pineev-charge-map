@@ -12,7 +12,6 @@ import {
 import FallbackMap from "./FallbackMap";
 import { DEFAULT_CENTER, statusColor, type Property } from "@/lib/pineev";
 
-
 interface MapViewProps {
   properties: Property[];
   selectedId?: string | null;
@@ -28,9 +27,7 @@ interface MapViewProps {
   /** Points to fit into view (user + nearby stations). Refit when the key changes. */
   fitPoints?: { lat: number; lng: number }[] | undefined;
   fitKey?: string | undefined;
-
 }
-
 
 export default function MapView({
   properties,
@@ -46,7 +43,6 @@ export default function MapView({
   fitPoints,
   fitKey,
 }: MapViewProps) {
-
   const containerRef = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<google.maps.Map | null>(null);
   const markersRef = useRef<Map<string, google.maps.Marker>>(new Map());
@@ -135,7 +131,6 @@ export default function MapView({
       }
       marker.setIcon(pinIcon(colorFor?.(property) ?? statusColor(property.status), selected));
       marker.setZIndex(selected ? 999 : 1);
-
     }
 
     if (cluster) {
@@ -151,7 +146,6 @@ export default function MapView({
         clustererRef.current.addMarkers(created);
       }
     } else {
-
       created.forEach((m) => m.setMap(map));
     }
   }, [ready, properties, selectedId, cluster, onSelect, colorFor]);
@@ -203,7 +197,6 @@ export default function MapView({
       window.setTimeout(step, 160);
     }
   }, [ready, focus]);
-
 
   if (blocked || error) {
     return (

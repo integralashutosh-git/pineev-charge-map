@@ -16,11 +16,11 @@ IMPORTANT RULES
 
 - Every screen must feel clean, modern and premium.
 
-------------------------------------
+---
 
 STARTUP DETAILS
 
-------------------------------------
+---
 
 Brand Name: PineEv
 
@@ -56,11 +56,11 @@ Style:
 
 Apple + Google Material 3 + Rapido
 
-------------------------------------
+---
 
 PAGES
 
-------------------------------------
+---
 
 1. Landing Page
 
@@ -76,11 +76,11 @@ PAGES
 
 7. Contact
 
-------------------------------------
+---
 
 LANDING PAGE
 
-------------------------------------
+---
 
 Sticky Navbar
 
@@ -104,11 +104,11 @@ Primary Button:
 
 Book Charging
 
-------------------------------------
+---
 
 HERO SECTION
 
-------------------------------------
+---
 
 Large headline:
 
@@ -146,11 +146,11 @@ Beautiful Google Map preview with green EV charging pins.
 
 Show 3 floating destination cards.
 
-------------------------------------
+---
 
 WHY PINEEV
 
-------------------------------------
+---
 
 4 premium cards
 
@@ -162,11 +162,11 @@ Secure Digital Payments
 
 Real-Time Availability
 
-------------------------------------
+---
 
 HOW IT WORKS
 
-------------------------------------
+---
 
 Step 1
 
@@ -186,11 +186,11 @@ Park & Charge
 
 Use simple illustrations.
 
-------------------------------------
+---
 
 POPULAR DESTINATIONS
 
-------------------------------------
+---
 
 Show cards:
 
@@ -216,11 +216,11 @@ Price
 
 Reserve Button
 
-------------------------------------
+---
 
 BECOME A PARTNER
 
-------------------------------------
+---
 
 Headline:
 
@@ -254,11 +254,11 @@ CTA:
 
 Register Your Property
 
-------------------------------------
+---
 
 MOBILE APP SECTION
 
-------------------------------------
+---
 
 Show Android & iPhone mockups.
 
@@ -272,11 +272,11 @@ Property
 
 Payment Success
 
-------------------------------------
+---
 
 FOOTER
 
-------------------------------------
+---
 
 Company
 
@@ -294,11 +294,11 @@ Instagram
 
 X
 
-------------------------------------
+---
 
 GOOGLE MAP PAGE
 
-------------------------------------
+---
 
 This is the core experience.
 
@@ -308,11 +308,11 @@ Keep the map as the background.
 
 Use Google Maps JavaScript API.
 
-------------------------------------
+---
 
 TOP FLOATING SEARCH
 
-------------------------------------
+---
 
 Rounded search pill
 
@@ -346,11 +346,11 @@ Restaurant
 
 Parking
 
-------------------------------------
+---
 
 MAP MARKERS
 
-------------------------------------
+---
 
 Custom PineEv markers.
 
@@ -364,11 +364,11 @@ Blue dot = User location
 
 Support clustering.
 
-------------------------------------
+---
 
 BOTTOM SHEET (Rapido Style)
 
-------------------------------------
+---
 
 Collapsed:
 
@@ -408,11 +408,11 @@ Tap card:
 
 Center map on marker.
 
-------------------------------------
+---
 
 PROPERTY DETAILS PAGE
 
-------------------------------------
+---
 
 Large cover image
 
@@ -452,11 +452,11 @@ Navigation button
 
 Google Maps Directions button
 
-------------------------------------
+---
 
 BOOKING FLOW
 
-------------------------------------
+---
 
 Step 1
 
@@ -486,11 +486,11 @@ Booking ID
 
 Navigate Now button
 
-------------------------------------
+---
 
 BUSINESS DASHBOARD
 
-------------------------------------
+---
 
 Minimal analytics.
 
@@ -522,11 +522,11 @@ Edit availability
 
 View earnings
 
-------------------------------------
+---
 
 GOOGLE MAP FEATURES
 
-------------------------------------
+---
 
 Use real Google Maps.
 
@@ -558,11 +558,11 @@ If mobile:
 
 Launch Google Maps app.
 
-------------------------------------
+---
 
 DATA MODEL
 
-------------------------------------
+---
 
 Each property includes:
 
@@ -594,11 +594,11 @@ amenities
 
 status
 
-------------------------------------
+---
 
 ANIMATIONS
 
-------------------------------------
+---
 
 Smooth bottom-sheet slide
 
@@ -614,11 +614,11 @@ Page transitions
 
 60 FPS interactions
 
-------------------------------------
+---
 
 RESPONSIVE
 
-------------------------------------
+---
 
 Desktop:
 
@@ -636,11 +636,11 @@ Rapido-style draggable sheet
 
 Thumb-friendly controls
 
-------------------------------------
+---
 
 FINAL EXPERIENCE
 
-------------------------------------
+---
 
 The website should feel like:
 

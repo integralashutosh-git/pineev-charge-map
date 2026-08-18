@@ -1,10 +1,23 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useSuspenseQuery, queryOptions } from "@tanstack/react-query";
-import { Search, Zap, ShieldCheck, Clock, MapPin, Star, ArrowRight } from "lucide-react";
+import { useState } from "react";
+import {
+  Search,
+  Zap,
+  ShieldCheck,
+  Clock,
+  MapPin,
+  Star,
+  ArrowRight,
+  ChevronDown,
+} from "lucide-react";
 import { SiteHeader } from "@/components/SiteHeader";
 import { MapPanel } from "@/components/MapPanel";
 import { SiteFooter } from "@/components/SiteFooter";
+import { AmbientBackground } from "@/components/AmbientBackground";
 import { Button } from "@/components/ui/button";
+import { LusionButton } from "@/components/ui/LusionButton";
+import { RollText } from "@/components/ui/RollText";
 import { listProperties } from "@/lib/catalog.functions";
 import {
   chargerSummary,
@@ -60,6 +73,42 @@ const STEPS = [
   },
 ];
 
+/** CTA row: Find a charger  ·  or  ·  List your property (with roll-text on hover) */
+function ListPropertyCTA() {
+  const [btnHovered, setBtnHovered] = useState(false);
+
+  return (
+    <div className="mt-7 flex flex-wrap items-center gap-4">
+      <LusionButton to="/find" variant="accent">
+        <MapPin className="mr-2 size-4" />
+        Find a charger
+      </LusionButton>
+      <span className="text-sm font-medium text-muted-foreground">or</span>
+      {/* outer div owns the hover so the full pill triggers the roll */}
+      <div
+        onMouseEnter={() => setBtnHovered(true)}
+        onMouseLeave={() => setBtnHovered(false)}
+        className="flex"
+      >
+        <Link to="/partner" className="flex">
+          <Button
+            size="lg"
+            className="rounded-full px-6 h-14 shadow-float overflow-hidden pointer-events-none"
+            tabIndex={-1}
+          >
+            <RollText
+              from="List your property"
+              to="Start earning now"
+              hovered={btnHovered}
+              charDelay={25}
+            />
+          </Button>
+        </Link>
+      </div>
+    </div>
+  );
+}
+
 function Landing() {
   const { data: properties } = useSuspenseQuery(propertiesQuery);
   const featured = properties.slice(0, 6);
@@ -71,8 +120,7 @@ function Landing() {
       <main className="flex-1">
         {/* Hero */}
         <section className="relative overflow-hidden">
-          <div className="pointer-events-none absolute -left-24 -top-24 size-72 rounded-full bg-primary/15 blur-3xl" />
-          <div className="pointer-events-none absolute -right-24 top-24 size-72 rounded-full bg-accent/15 blur-3xl" />
+          <AmbientBackground />
           <div className="mx-auto grid w-full max-w-6xl items-center gap-10 pad-x section-y md:grid-cols-2">
             <div className="animate-rise">
               <span className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1.5 text-xs font-semibold text-muted-foreground shadow-soft">
@@ -92,19 +140,7 @@ function Landing() {
                 PineEV connects EV drivers with verified commercial properties — hotels, cafés,
                 dhabas and offices — to reserve parking and charging in a few taps.
               </p>
-              <div className="mt-7 flex flex-wrap gap-3">
-                <Link to="/find">
-                  <Button size="lg" className="rounded-full px-6 shadow-float">
-                    <MapPin className="mr-2 size-4" />
-                    Find a charger
-                  </Button>
-                </Link>
-                <Link to="/partner">
-                  <Button size="lg" variant="outline" className="rounded-full px-6">
-                    List your property
-                  </Button>
-                </Link>
-              </div>
+              <ListPropertyCTA />
               <dl className="mt-9 grid max-w-md grid-cols-3 gap-4">
                 {[
                   ["4.8★", "Avg. rating"],
@@ -154,7 +190,19 @@ function Landing() {
                 />
               </div>
             </div>
+          </div>
 
+          {/* Scroll Indicator */}
+          <div className="flex justify-center pb-8 animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-500 fill-mode-both">
+            <button
+              onClick={() => window.scrollBy({ top: window.innerHeight * 0.8, behavior: "smooth" })}
+              className="group flex flex-col items-center gap-2 text-muted-foreground transition-colors hover:text-primary"
+            >
+              <span className="text-[10px] font-bold uppercase tracking-widest opacity-80 group-hover:opacity-100 transition-opacity">
+                Explore
+              </span>
+              <ChevronDown className="size-4 animate-bounce opacity-80 group-hover:opacity-100 transition-opacity" />
+            </button>
           </div>
         </section>
 
@@ -237,9 +285,7 @@ function Landing() {
                     {property.address}
                   </p>
                   <div className="mt-4 flex items-center justify-between text-xs">
-                    <span className="font-semibold text-primary">
-                      {chargerSummary(property)}
-                    </span>
+                    <span className="font-semibold text-primary">{chargerSummary(property)}</span>
                     <span className="font-semibold">{formatPrice(property.price)}</span>
                   </div>
                 </div>

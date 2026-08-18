@@ -2,15 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { useState } from "react";
-import {
-  IndianRupee,
-  CalendarCheck,
-  Zap,
-  Gauge,
-  Loader2,
-  Plus,
-  Building2,
-} from "lucide-react";
+import { IndianRupee, CalendarCheck, Zap, Gauge, Loader2, Plus, Building2 } from "lucide-react";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { Button } from "@/components/ui/button";
@@ -192,7 +184,10 @@ function DashboardPage() {
                 { icon: Zap, label: "Active chargers", value: String(stats?.activeChargers ?? 0) },
                 { icon: Gauge, label: "Utilisation", value: `${stats?.utilization ?? 0}%` },
               ].map((card) => (
-                <div key={card.label} className="rounded-3xl border border-border bg-card p-5 shadow-soft">
+                <div
+                  key={card.label}
+                  className="rounded-3xl border border-border bg-card p-5 shadow-soft"
+                >
                   <card.icon className="size-4 text-primary" />
                   <p className="mt-3 text-xs font-semibold text-muted-foreground">{card.label}</p>
                   <p className="font-display text-2xl font-bold">{card.value}</p>

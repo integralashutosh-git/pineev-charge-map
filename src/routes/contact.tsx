@@ -87,7 +87,12 @@ function ContactPage() {
                 <div className="grid gap-4 sm:grid-cols-2">
                   <div>
                     <Label className="text-xs">Name</Label>
-                    <Input required value={form.name} onChange={set("name")} className="mt-1.5 rounded-xl" />
+                    <Input
+                      required
+                      value={form.name}
+                      onChange={set("name")}
+                      className="mt-1.5 rounded-xl"
+                    />
                   </div>
                   <div>
                     <Label className="text-xs">Email</Label>
@@ -102,7 +107,11 @@ function ContactPage() {
                 </div>
                 <div>
                   <Label className="text-xs">Subject</Label>
-                  <Input value={form.subject} onChange={set("subject")} className="mt-1.5 rounded-xl" />
+                  <Input
+                    value={form.subject}
+                    onChange={set("subject")}
+                    className="mt-1.5 rounded-xl"
+                  />
                 </div>
                 <div>
                   <Label className="text-xs">Message</Label>
@@ -119,7 +128,12 @@ function ContactPage() {
                     {(mutation.error as Error).message}
                   </p>
                 ) : null}
-                <Button type="submit" size="lg" className="w-full rounded-full" disabled={mutation.isPending}>
+                <Button
+                  type="submit"
+                  size="lg"
+                  className="w-full rounded-full"
+                  disabled={mutation.isPending}
+                >
                   {mutation.isPending ? <Loader2 className="mr-2 size-4 animate-spin" /> : null}
                   Send message
                 </Button>

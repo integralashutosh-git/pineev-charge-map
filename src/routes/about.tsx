@@ -67,7 +67,10 @@ function AboutPage() {
 
           <div className="mt-12 grid gap-4 sm:grid-cols-2">
             {VALUES.map((item) => (
-              <div key={item.title} className="rounded-3xl border border-border bg-card p-6 shadow-soft">
+              <div
+                key={item.title}
+                className="rounded-3xl border border-border bg-card p-6 shadow-soft"
+              >
                 <div className="flex size-11 items-center justify-center rounded-2xl bg-accent/10 text-accent">
                   <item.icon className="size-5" />
                 </div>
@@ -80,9 +83,9 @@ function AboutPage() {
           <div className="mt-12 rounded-4xl border border-border bg-surface p-8">
             <h2 className="text-2xl font-bold tracking-tight">Our mission</h2>
             <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-              Connect EV drivers with verified commercial properties to reserve parking and
-              charging — so range anxiety becomes a planning problem we solve for you, not a risk
-              you carry on every trip.
+              Connect EV drivers with verified commercial properties to reserve parking and charging
+              — so range anxiety becomes a planning problem we solve for you, not a risk you carry
+              on every trip.
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
               <Link to="/find">

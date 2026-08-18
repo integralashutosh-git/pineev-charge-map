@@ -35,11 +35,9 @@ export function loadGoogleMaps(): Promise<typeof google.maps> {
   if (loaderPromise) return loaderPromise;
 
   const key = import.meta.env["VITE_LOVABLE_CONNECTOR_GOOGLE_MAPS_BROWSER_KEY"] as
-    | string
-    | undefined;
+    string | undefined;
   const channel = import.meta.env["VITE_LOVABLE_CONNECTOR_GOOGLE_MAPS_TRACKING_ID"] as
-    | string
-    | undefined;
+    string | undefined;
 
   if (!key) {
     return Promise.reject(new Error("Google Maps key is not configured"));
@@ -81,7 +79,11 @@ export const MAP_STYLES: google.maps.MapTypeStyle[] = [
   { featureType: "poi.park", elementType: "labels.text", stylers: [{ visibility: "off" }] },
   { featureType: "transit", stylers: [{ visibility: "off" }] },
   { featureType: "road", elementType: "labels.icon", stylers: [{ visibility: "off" }] },
-  { featureType: "administrative", elementType: "labels.text.fill", stylers: [{ color: "#4b5563" }] },
+  {
+    featureType: "administrative",
+    elementType: "labels.text.fill",
+    stylers: [{ color: "#4b5563" }],
+  },
   { featureType: "water", elementType: "geometry", stylers: [{ color: "#d7e7f5" }] },
   { featureType: "landscape", elementType: "geometry", stylers: [{ color: "#f6f7f9" }] },
 ];

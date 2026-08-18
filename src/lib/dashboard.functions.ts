@@ -8,7 +8,9 @@ export const getDashboard = createServerFn({ method: "GET" })
   .handler(async ({ context }) => {
     const { data: properties, error: propError } = await context.supabase
       .from("properties")
-      .select("id,name,category,city,status,available_slots,total_slots,price,power_kw,charger_type")
+      .select(
+        "id,name,category,city,status,available_slots,total_slots,price,power_kw,charger_type",
+      )
       .eq("owner_id", context.userId)
       .order("created_at", { ascending: false });
     if (propError) throw new Error(propError.message);

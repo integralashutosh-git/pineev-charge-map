@@ -65,9 +65,7 @@ function BookingsPage() {
       <SiteHeader />
       <main className="mx-auto w-full max-w-3xl flex-1 px-4 py-10 sm:px-6">
         <h1 className="text-3xl font-bold tracking-tight">My bookings</h1>
-        <p className="mt-2 text-sm text-muted-foreground">
-          Reserved charging slots, newest first.
-        </p>
+        <p className="mt-2 text-sm text-muted-foreground">Reserved charging slots, newest first.</p>
 
         {isLoading ? (
           <div className="mt-10 flex justify-center">

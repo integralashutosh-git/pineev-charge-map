@@ -89,7 +89,6 @@ export function buildDashboard(
     return { bucket, sessions: count };
   });
 
-
   const nameById = new Map(properties.map((p) => [p.id, p.name]));
   const recent = confirmed.slice(0, 10).map((b) => ({
     ...b,
