@@ -249,25 +249,26 @@ export function AmbientBackground() {
     }
 
     class Vehicle {
-      type: string;
-      nodeId: number;
-      x: number;
-      y: number;
-      tx: number;
-      ty: number;
-      state: string;
-      chargeT: number;
-      speed: number;
-      trail: { x: number; y: number }[];
-      opacity: number;
-      dead: boolean;
-      el: HTMLDivElement;
+      type!: string;
+      nodeId!: number;
+      x!: number;
+      y!: number;
+      tx!: number;
+      ty!: number;
+      state!: string;
+      chargeT!: number;
+      speed!: number;
+      trail!: { x: number; y: number }[];
+      opacity!: number;
+      dead!: boolean;
+      el!: HTMLDivElement;
 
       constructor() {
         this.type = Math.random() < 0.55 ? "car" : "bike";
         const eIdx = ENTRY_IDS[Math.floor(Math.random() * ENTRY_IDS.length)] as number;
         this.nodeId = eIdx;
         const eb = buildings[eIdx];
+        if (!eb) return;
         this.x = W + 70;
         this.y = eb.y + (Math.random() - 0.5) * 24;
         this.tx = eb.x;
@@ -290,8 +291,8 @@ export function AmbientBackground() {
       }
 
       _dom() {
-        this.el.style.left = this.x + "px";
-        this.el.style.top = this.y + "px";
+        // Use transform instead of left/top — compositor-only, zero layout cost
+        this.el.style.transform = `translate3d(calc(${this.x}px - 50%), calc(${this.y}px - 50%), 0)`;
         this.el.style.opacity = this.opacity.toString();
       }
 
@@ -304,6 +305,7 @@ export function AmbientBackground() {
         switch (this.state) {
           case "TRAVELING": {
             const bld = buildings[this.nodeId];
+            if (!bld) break;
             const dx = bld.x - this.x,
               dy = bld.y - this.y;
             const d = Math.hypot(dx, dy);
@@ -321,8 +323,10 @@ export function AmbientBackground() {
           }
 
           case "CHARGING": {
-            this.x = buildings[this.nodeId].x;
-            this.y = buildings[this.nodeId].y;
+            const chargeBld = buildings[this.nodeId];
+            if (!chargeBld) break;
+            this.x = chargeBld.x;
+            this.y = chargeBld.y;
             this.chargeT++;
             if (this.chargeT >= CHARGE_FRAMES) {
               this.el.classList.remove("charged");
@@ -392,8 +396,9 @@ export function AmbientBackground() {
     function drawNetwork() {
       if (!ctx) return;
       EDGES.forEach(([a, b]) => {
-        const na = buildings[a],
-          nb = buildings[b];
+        const na = buildings[a];
+        const nb = buildings[b];
+        if (!na || !nb) return;
         ctx.save();
         ctx.strokeStyle = ECOL;
         ctx.lineWidth = 1;
@@ -433,9 +438,19 @@ export function AmbientBackground() {
       vehicles.forEach((v) => v.drawTrail());
     }
 
-    function loop(now = 0) {
+    // Internal clock that only advances by real delta-time each frame.
+    // This prevents the animation from jumping/jittering when the page
+    // is scrolled away (RAF pauses) and then scrolled back (timestamp leaps).
+    let internalNow = 0;
+    let lastRafTs = -1; // -1 sentinel = first frame
+
+    function loop(rafTs: number) {
       rafId = requestAnimationFrame(loop);
-      update(now);
+      // First frame: lastRafTs is -1, so assume 16ms to avoid NaN
+      const delta = lastRafTs < 0 ? 16 : Math.min(rafTs - lastRafTs, 50);
+      lastRafTs = rafTs;
+      internalNow += delta;
+      update(internalNow);
       render();
     }
 
@@ -462,7 +477,9 @@ export function AmbientBackground() {
     ro.observe(container);
 
     resize();
-    loop();
+    // Use requestAnimationFrame for the first call so rafTs is always
+    // a valid DOMHighResTimeStamp — never undefined/NaN.
+    rafId = requestAnimationFrame(loop);
 
     return () => {
       cancelAnimationFrame(rafId);
@@ -505,9 +522,14 @@ export function AmbientBackground() {
         }
         .veh-wrap {
           position: absolute;
-          transform: translate(-50%,-50%);
+          /* Start at 0,0 — actual position set via transform in _dom() */
+          left: 0;
+          top: 0;
+          transform: translate3d(-50%, -50%, 0);
           display: flex; flex-direction:column; align-items:center; gap:3px;
-          pointer-events:none; will-change:left,top;
+          pointer-events:none;
+          /* transform is compositor-only — GPU handles it, zero layout reflows */
+          will-change: transform, opacity;
         }
         .veh-wrap svg {
           display:block; width:30px; height:30px;

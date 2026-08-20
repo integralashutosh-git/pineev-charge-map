@@ -25,6 +25,7 @@ export const Route = createFileRoute("/contact")({
         property: "og:description",
         content: "Support for EV drivers and property partners on PineEV.",
       },
+      { property: "og:image", content: "https://pineev.in/og-image.png" },
     ],
   }),
   component: ContactPage,
@@ -44,30 +45,31 @@ function ContactPage() {
     <div className="flex min-h-screen flex-col">
       <SiteHeader />
       <main className="flex-1">
-        <section className="mx-auto grid w-full max-w-5xl gap-8 pad-x section-y md:grid-cols-5">
-          <div className="md:col-span-2">
-            <h1 className="text-4xl font-bold leading-tight tracking-tight">Talk to us</h1>
-            <p className="mt-4 text-sm text-muted-foreground">
-              Whether you're a driver with a booking question or a property owner exploring a
-              partnership, we're here.
-            </p>
-            <ul className="mt-8 space-y-4 text-sm">
-              {[
-                { icon: Mail, label: "support@pineev.in" },
-                { icon: Phone, label: "+91 80 4718 2200" },
-                { icon: MapPin, label: "Indiranagar, Bengaluru 560038" },
-              ].map((item) => (
-                <li key={item.label} className="flex items-center gap-3">
-                  <span className="flex size-10 items-center justify-center rounded-2xl bg-primary/10 text-primary">
-                    <item.icon className="size-4" />
-                  </span>
-                  <span className="font-medium">{item.label}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
+        <section className="mx-auto w-full max-w-5xl pad-x section-y">
+          <div className="grid gap-8 lg:grid-cols-5">
+            <div className="lg:col-span-2">
+              <h1 className="text-4xl font-bold leading-tight tracking-tight">Talk to us</h1>
+              <p className="mt-4 text-sm text-muted-foreground">
+                Whether you're a driver with a booking question or a property owner exploring a
+                partnership, we're here.
+              </p>
+              <ul className="mt-8 space-y-4 text-sm">
+                {[
+                  { icon: Mail, label: "support@pineev.in" },
+                  { icon: Phone, label: "+91 80 4718 2200" },
+                  { icon: MapPin, label: "Indiranagar, Bengaluru 560038" },
+                ].map((item) => (
+                  <li key={item.label} className="flex items-center gap-3">
+                    <span className="flex size-10 items-center justify-center rounded-2xl bg-primary/10 text-primary">
+                      <item.icon className="size-4" />
+                    </span>
+                    <span className="font-medium">{item.label}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
 
-          <div className="md:col-span-3">
+            <div className="lg:col-span-3">
             {mutation.isSuccess ? (
               <div className="rounded-4xl border border-border bg-card p-8 text-center shadow-float">
                 <CheckCircle2 className="mx-auto size-12 text-primary" />
@@ -131,7 +133,7 @@ function ContactPage() {
                 <Button
                   type="submit"
                   size="lg"
-                  className="w-full rounded-full"
+                  className="w-full rounded-full touch-target"
                   disabled={mutation.isPending}
                 >
                   {mutation.isPending ? <Loader2 className="mr-2 size-4 animate-spin" /> : null}
@@ -140,6 +142,7 @@ function ContactPage() {
               </form>
             )}
           </div>
+        </div>
         </section>
       </main>
       <SiteFooter />

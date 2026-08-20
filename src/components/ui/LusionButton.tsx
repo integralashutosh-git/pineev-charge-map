@@ -75,7 +75,7 @@ export function LusionButton({
       animate={{ x: position.x, y: position.y }}
       transition={{ type: "spring", stiffness: 150, damping: 15, mass: 0.1 }}
       className={cn(
-        "relative flex h-14 cursor-pointer items-center justify-center overflow-hidden rounded-full border-2 bg-transparent px-10 text-base font-semibold shadow-lg",
+        "relative flex h-14 cursor-pointer items-center justify-center overflow-hidden rounded-full border-2 bg-transparent px-10 text-base font-semibold shadow-lg touch-target",
         borderClass,
         className,
       )}

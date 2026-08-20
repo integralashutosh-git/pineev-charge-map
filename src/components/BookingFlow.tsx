@@ -120,10 +120,10 @@ export function BookingFlow({ property, chargers }: BookingFlowProps) {
         </dl>
         <div className="mt-7 flex flex-wrap justify-center gap-2">
           <Link to="/bookings">
-            <Button className="rounded-full">My bookings</Button>
+            <Button className="rounded-full touch-target">My bookings</Button>
           </Link>
           <Link to="/find">
-            <Button variant="outline" className="rounded-full">
+            <Button variant="outline" className="rounded-full touch-target">
               Back to map
             </Button>
           </Link>
@@ -155,11 +155,11 @@ export function BookingFlow({ property, chargers }: BookingFlowProps) {
               type="button"
               disabled={offline}
               onClick={() => setChargerId(item.id)}
-              className={`flex items-center gap-3 rounded-2xl border p-3.5 text-left transition-colors disabled:opacity-50 ${
+              className={`flex items-center gap-3 rounded-2xl border p-4 text-left transition-colors disabled:opacity-50 touch-target ${
                 active ? "border-primary bg-primary/5" : "border-border hover:bg-surface"
               }`}
             >
-              <span className="flex size-9 items-center justify-center rounded-xl bg-secondary text-primary">
+              <span className="flex size-10 items-center justify-center rounded-xl bg-secondary text-primary shrink-0">
                 <Zap className="size-4" />
               </span>
               <span className="min-w-0 flex-1">
@@ -186,7 +186,7 @@ export function BookingFlow({ property, chargers }: BookingFlowProps) {
             key={day.value}
             type="button"
             onClick={() => setDate(day.value)}
-            className={`shrink-0 rounded-2xl border px-4 py-2.5 text-center transition-colors ${
+            className={`shrink-0 rounded-2xl border px-4 py-3 text-center transition-colors touch-target ${
               date === day.value
                 ? "border-primary bg-primary text-primary-foreground"
                 : "border-border"
@@ -201,7 +201,7 @@ export function BookingFlow({ property, chargers }: BookingFlowProps) {
 
       {/* Slots */}
       <p className="mt-6 text-xs font-semibold text-muted-foreground">3 · Pick a time slot</p>
-      <div className="mt-2 grid grid-cols-2 gap-2 sm:grid-cols-4">
+      <div className="mt-2 grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-4">
         {TIME_SLOTS.map((item) => {
           const isTaken = taken.includes(item);
           return (
@@ -210,7 +210,7 @@ export function BookingFlow({ property, chargers }: BookingFlowProps) {
               type="button"
               disabled={isTaken}
               onClick={() => setSlot(item)}
-              className={`rounded-2xl border px-2 py-2.5 text-xs font-semibold transition-colors disabled:cursor-not-allowed disabled:bg-muted disabled:text-muted-foreground disabled:line-through ${
+              className={`rounded-2xl border px-2 py-3 text-xs font-semibold transition-colors disabled:cursor-not-allowed disabled:bg-muted disabled:text-muted-foreground disabled:line-through touch-target ${
                 slot === item
                   ? "border-primary bg-primary text-primary-foreground"
                   : "border-border"
@@ -238,11 +238,11 @@ export function BookingFlow({ property, chargers }: BookingFlowProps) {
             key={option.id}
             type="button"
             onClick={() => setMethod(option.id)}
-            className={`flex items-center gap-3 rounded-2xl border p-3.5 text-left transition-colors ${
+            className={`flex items-center gap-3 rounded-2xl border p-4 text-left transition-colors touch-target ${
               method === option.id ? "border-accent bg-accent/5" : "border-border hover:bg-surface"
             }`}
           >
-            <span className="flex size-9 items-center justify-center rounded-xl bg-secondary text-accent">
+            <span className="flex size-10 items-center justify-center rounded-xl bg-secondary text-accent shrink-0">
               <option.icon className="size-4" />
             </span>
             <span>
@@ -272,14 +272,14 @@ export function BookingFlow({ property, chargers }: BookingFlowProps) {
 
       <div className="mt-4">
         {loading ? (
-          <Button disabled className="w-full rounded-full" size="lg">
+          <Button disabled className="w-full rounded-full touch-target" size="lg">
             <Loader2 className="mr-2 size-4 animate-spin" />
             Checking session
           </Button>
         ) : !user ? (
           <Button
             size="lg"
-            className="w-full rounded-full"
+            className="w-full rounded-full touch-target"
             onClick={() =>
               navigate({
                 to: "/auth",
@@ -292,7 +292,7 @@ export function BookingFlow({ property, chargers }: BookingFlowProps) {
         ) : (
           <Button
             size="lg"
-            className="w-full rounded-full shadow-float"
+            className="w-full rounded-full shadow-float touch-target"
             disabled={!slot || !chargerId || booking.isPending}
             onClick={() => booking.mutate()}
           >

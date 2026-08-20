@@ -64,7 +64,7 @@ function PropertyNotFound() {
           It may have been removed or is awaiting verification.
         </p>
         <Link to="/find" className="mt-6 inline-block">
-          <Button className="rounded-full">Back to map</Button>
+          <Button className="rounded-full touch-target">Back to map</Button>
         </Link>
       </div>
     </div>
@@ -81,15 +81,24 @@ function PropertyDetail() {
     <div className="min-h-screen bg-surface pb-28">
       {/* Gallery */}
       <div className="relative">
-        <div className="aspect-[4/3] w-full overflow-hidden bg-muted sm:aspect-[21/9]">
+        <div className="aspect-video w-full max-h-[400px] overflow-hidden bg-muted sm:aspect-[21/9] sm:max-h-[480px]">
           {property.images?.[0] ? (
-            <img src={property.images[0]} alt={property.name} className="size-full object-cover" />
+            <img
+              src={property.images[0]}
+              alt={property.name}
+              className="size-full object-cover"
+              /* LCP image — load eagerly and at highest priority */
+              fetchPriority="high"
+              decoding="async"
+              width={1200}
+              height={514}
+            />
           ) : null}
         </div>
         <Link
           to="/find"
           aria-label="Back to map"
-          className="absolute left-4 top-4 inline-flex size-10 items-center justify-center rounded-full bg-card/90 shadow-float backdrop-blur-xl"
+          className="absolute left-4 top-4 inline-flex size-12 items-center justify-center rounded-full bg-card/90 shadow-float backdrop-blur-xl touch-target"
         >
           <ArrowLeft className="size-4" />
         </Link>
@@ -118,7 +127,7 @@ function PropertyDetail() {
             {property.address}
           </p>
 
-          <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-4">
+          <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-2 lg:grid-cols-4">
             {[
               { icon: Zap, label: "Charger", value: chargerSummary(property) },
               { icon: Clock, label: "Timings", value: property.open_status || "Open now" },
@@ -178,7 +187,7 @@ function PropertyDetail() {
               <p className="truncate text-xs text-muted-foreground">{property.address}</p>
             </div>
             <a href={directionsUrl(position.lat, position.lng)} target="_blank" rel="noreferrer">
-              <Button variant="outline" size="sm" className="rounded-full">
+              <Button variant="outline" size="sm" className="rounded-full touch-target">
                 <Navigation className="mr-1.5 size-4" />
                 Directions
               </Button>

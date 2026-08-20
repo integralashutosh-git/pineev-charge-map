@@ -14,7 +14,7 @@ export const listProperties = createServerFn({ method: "GET" }).handler(async ()
 });
 
 export const getPropertyDetail = createServerFn({ method: "GET" })
-  .inputValidator((data) => z.object({ id: z.string().uuid() }).parse(data))
+  .validator((data) => z.object({ id: z.string().uuid() }).parse(data))
   .handler(async ({ data }) => {
     const supabase = createPublicClient();
     const [property, chargers] = await Promise.all([
@@ -32,7 +32,7 @@ export const getPropertyDetail = createServerFn({ method: "GET" })
   });
 
 export const submitPartnerApplication = createServerFn({ method: "POST" })
-  .inputValidator((data) =>
+  .validator((data) =>
     z
       .object({
         business_name: z.string().min(2).max(120),
@@ -55,7 +55,7 @@ export const submitPartnerApplication = createServerFn({ method: "POST" })
   });
 
 export const submitContactMessage = createServerFn({ method: "POST" })
-  .inputValidator((data) =>
+  .validator((data) =>
     z
       .object({
         name: z.string().min(2).max(80),

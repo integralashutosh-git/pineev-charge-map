@@ -205,24 +205,65 @@ export default function FallbackMap({
         if (!p) return null;
         const selected = property.id === selectedId;
         const color = colorFor?.(property) ?? statusColor(property.status);
+        const w = selected ? 44 : 34;
+        const h = selected ? 54 : 42;
         return (
           <button
             key={property.id}
             type="button"
             title={property.name}
             onClick={() => onSelect?.(property.id)}
-            className="absolute grid place-items-center rounded-full border-2 border-white transition-transform duration-200"
+            className="absolute cursor-pointer touch-target transition-transform duration-200 hover:scale-110 focus:outline-none"
             style={{
-              left: p.x - (selected ? 15 : 11),
-              top: p.y - (selected ? 15 : 11),
-              width: selected ? 30 : 22,
-              height: selected ? 30 : 22,
-              background: color,
-              boxShadow: "0 4px 12px rgb(17 24 39 / 0.28)",
+              left: p.x - w / 2,
+              top: p.y - h,
+              width: w,
+              height: h,
               zIndex: selected ? 30 : 20,
+              filter: selected
+                ? `drop-shadow(0 0 6px ${color}88) drop-shadow(0 3px 6px rgba(17,24,39,0.4))`
+                : "drop-shadow(0 3px 5px rgba(17,24,39,0.35))",
+              transform: selected ? "scale(1.15)" : "scale(1)",
             }}
           >
-            <span className="block size-1.5 rounded-full bg-white/90" />
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width={w}
+              height={h}
+              viewBox="0 0 44 54"
+              aria-hidden="true"
+            >
+              {/* Pin body */}
+              <path
+                d="M22 3c9.4 0 17 7.4 17 16.6 0 11.9-13.4 24.3-16 28.9a1.2 1.2 0 0 1-2 0C18.4 43.9 5 31.5 5 19.6C5 10.4 12.6 3 22 3Z"
+                fill={color}
+              />
+              {/* White highlight stroke */}
+              <path
+                d="M22 3c9.4 0 17 7.4 17 16.6 0 11.9-13.4 24.3-16 28.9a1.2 1.2 0 0 1-2 0C18.4 43.9 5 31.5 5 19.6C5 10.4 12.6 3 22 3Z"
+                fill="none"
+                stroke="rgba(255,255,255,0.9)"
+                strokeWidth="1.5"
+              />
+              {/* Lightning bolt icon */}
+              <path
+                d="M24.6 12h-5.9l-4.1 9.4h4.4l-1.7 8.6 8.6-11.2h-4.3l3-6.8Z"
+                fill="#ffffff"
+                opacity="0.95"
+              />
+              {/* Selection ring */}
+              {selected && (
+                <circle
+                  cx="22"
+                  cy="19.6"
+                  r="8"
+                  fill="none"
+                  stroke={color}
+                  strokeWidth="2"
+                  opacity="0.6"
+                />
+              )}
+            </svg>
           </button>
         );
       })}
@@ -232,7 +273,7 @@ export default function FallbackMap({
           <button
             type="button"
             aria-label="Zoom in"
-            className="size-9 text-base font-semibold"
+            className="size-11 text-base font-semibold touch-target"
             onClick={() => setView({ ...view, z: Math.min(18, view.z + 1) })}
           >
             +
@@ -240,7 +281,7 @@ export default function FallbackMap({
           <button
             type="button"
             aria-label="Zoom out"
-            className="size-9 border-t border-border text-base font-semibold"
+            className="size-11 border-t border-border text-base font-semibold touch-target"
             onClick={() => setView({ ...view, z: Math.max(3, view.z - 1) })}
           >
             −

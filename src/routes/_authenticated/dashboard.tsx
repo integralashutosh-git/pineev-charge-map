@@ -83,7 +83,7 @@ function DashboardPage() {
               Everything you need, nothing you don't.
             </p>
           </div>
-          <Button className="rounded-full" onClick={() => setShowForm((v) => !v)}>
+          <Button className="rounded-full touch-target" onClick={() => setShowForm((v) => !v)}>
             <Plus className="mr-1.5 size-4" />
             Add listing
           </Button>
@@ -157,7 +157,7 @@ function DashboardPage() {
                   </p>
                 ) : null}
                 <div className="sm:col-span-2">
-                  <Button type="submit" className="rounded-full" disabled={claim.isPending}>
+                  <Button type="submit" className="rounded-full touch-target" disabled={claim.isPending}>
                     {claim.isPending ? <Loader2 className="mr-2 size-4 animate-spin" /> : null}
                     Submit for verification
                   </Button>
@@ -255,7 +255,7 @@ function DashboardPage() {
                           min={0}
                           max={property.total_slots}
                           defaultValue={property.available_slots}
-                          className="h-9 w-16 rounded-xl"
+                          className="h-12 w-16 rounded-xl touch-target"
                           onBlur={(e) =>
                             availability.mutate({
                               propertyId: property.id,
@@ -276,7 +276,7 @@ function DashboardPage() {
                               status: e.target.value,
                             })
                           }
-                          className="h-9 rounded-xl border border-input bg-background px-2 text-xs"
+                          className="h-12 rounded-xl border border-input bg-background px-3 text-xs touch-target"
                         >
                           <option value="available">Available</option>
                           <option value="busy">Busy</option>

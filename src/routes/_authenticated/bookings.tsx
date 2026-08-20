@@ -76,7 +76,7 @@ function BookingsPage() {
             <Ticket className="mx-auto size-10 text-muted-foreground" />
             <p className="mt-4 text-sm text-muted-foreground">No bookings yet.</p>
             <Link to="/find" className="mt-5 inline-block">
-              <Button className="rounded-full">Find a charger</Button>
+              <Button className="rounded-full touch-target">Find a charger</Button>
             </Link>
           </div>
         ) : (
@@ -128,14 +128,14 @@ function BookingsPage() {
                       target="_blank"
                       rel="noreferrer"
                     >
-                      <Button size="sm" variant="outline" className="rounded-full">
+                      <Button size="sm" variant="outline" className="rounded-full touch-target">
                         <Navigation className="mr-1.5 size-3.5" />
                         Directions
                       </Button>
                     </a>
                   ) : null}
                   <Link to="/property/$id" params={{ id: booking.property_id }}>
-                    <Button size="sm" variant="ghost" className="rounded-full">
+                    <Button size="sm" variant="ghost" className="rounded-full touch-target">
                       View spot
                     </Button>
                   </Link>
@@ -143,7 +143,7 @@ function BookingsPage() {
                     <Button
                       size="sm"
                       variant="ghost"
-                      className="ml-auto rounded-full text-destructive hover:text-destructive"
+                      className="ml-auto rounded-full text-destructive hover:text-destructive touch-target"
                       disabled={cancel.isPending}
                       onClick={() => cancel.mutate(booking.id)}
                     >

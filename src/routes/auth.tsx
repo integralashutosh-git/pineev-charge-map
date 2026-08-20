@@ -122,7 +122,7 @@ function AuthPage() {
           <Button
             type="button"
             variant="outline"
-            className="mt-5 w-full rounded-full"
+            className="mt-5 w-full rounded-full touch-target"
             onClick={() => void google()}
           >
             <svg viewBox="0 0 24 24" className="mr-2 size-4" aria-hidden="true">
@@ -207,7 +207,7 @@ function AuthPage() {
               <p className="rounded-xl bg-primary/10 px-3 py-2 text-xs text-primary">{notice}</p>
             ) : null}
 
-            <Button type="submit" className="w-full rounded-full" disabled={busy}>
+            <Button type="submit" className="w-full rounded-full touch-target" disabled={busy}>
               {busy ? <Loader2 className="mr-2 size-4 animate-spin" /> : null}
               {mode === "signin" ? "Sign in" : "Create account"}
             </Button>
@@ -217,7 +217,7 @@ function AuthPage() {
             {mode === "signin" ? "New to PineEV?" : "Already have an account?"}{" "}
             <button
               type="button"
-              className="font-semibold text-primary"
+              className="font-semibold text-primary touch-target py-1"
               onClick={() => setMode(mode === "signin" ? "signup" : "signin")}
             >
               {mode === "signin" ? "Create an account" : "Sign in"}

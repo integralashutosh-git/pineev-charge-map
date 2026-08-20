@@ -18,6 +18,7 @@ export const Route = createFileRoute("/about")({
         property: "og:description",
         content: "Why we are building a reservation-first EV charging network.",
       },
+      { property: "og:image", content: "https://pineev.in/og-image.png" },
     ],
   }),
   component: AboutPage,
@@ -89,10 +90,10 @@ function AboutPage() {
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
               <Link to="/find">
-                <Button className="rounded-full">Find a charger</Button>
+                <Button className="rounded-full touch-target">Find a charger</Button>
               </Link>
               <Link to="/partner">
-                <Button variant="outline" className="rounded-full">
+                <Button variant="outline" className="rounded-full touch-target">
                   Partner with us
                 </Button>
               </Link>

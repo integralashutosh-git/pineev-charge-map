@@ -68,6 +68,7 @@ export const Route = createFileRoute("/find")({
         property: "og:description",
         content: "Live availability, distance and pricing for verified EV charging hosts.",
       },
+      { property: "og:image", content: "https://pineev.in/og-image.png" },
     ],
   }),
   loader: ({ context }) => {
@@ -221,6 +222,7 @@ function FindPage() {
         colorFor={markerColorFor}
         fitPoints={fitPoints}
         fitKey={fitKey}
+        cluster={true}
         className="absolute inset-0"
       />
 
@@ -230,7 +232,7 @@ function FindPage() {
           <div className="glass-panel flex items-center gap-2 rounded-full border border-border/60 px-2 py-2">
             <Link
               to="/"
-              className="inline-flex size-9 shrink-0 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-secondary"
+              className="inline-flex size-10 shrink-0 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-secondary touch-target"
               aria-label="Back to home"
             >
               <ArrowLeft className="size-4" />
@@ -246,7 +248,7 @@ function FindPage() {
               <button
                 type="button"
                 onClick={() => setQuery("")}
-                className="inline-flex size-8 items-center justify-center rounded-full text-muted-foreground hover:bg-secondary"
+                className="inline-flex size-10 items-center justify-center rounded-full text-muted-foreground hover:bg-secondary touch-target"
                 aria-label="Clear search"
               >
                 <X className="size-4" />
@@ -264,7 +266,7 @@ function FindPage() {
                     select(property.id);
                     setQuery("");
                   }}
-                  className="flex w-full items-center gap-2 px-4 py-2.5 text-left hover:bg-secondary"
+                  className="flex w-full items-center gap-3 px-4 py-3 text-left hover:bg-secondary touch-target"
                 >
                   <MapPin className="size-4 shrink-0 text-muted-foreground" />
                   <span className="min-w-0 flex-1">
@@ -289,7 +291,7 @@ function FindPage() {
                 key={item}
                 type="button"
                 onClick={() => setFilter(item)}
-                className={`shrink-0 rounded-full border px-3.5 py-1.5 text-xs font-semibold shadow-soft transition-colors ${
+                className={`shrink-0 rounded-full border px-4 py-2 text-xs font-semibold shadow-soft transition-colors touch-target ${
                   filter === item
                     ? "border-primary bg-primary text-primary-foreground"
                     : "border-border/60 bg-card/90 text-foreground backdrop-blur-xl hover:bg-card"
@@ -307,7 +309,7 @@ function FindPage() {
         type="button"
         onClick={() => locate()}
         aria-label="Use my location"
-        className="absolute right-4 z-20 inline-flex size-11 items-center justify-center rounded-full border border-border/60 bg-card/95 text-foreground shadow-float backdrop-blur-xl transition-transform active:scale-95"
+        className="absolute right-4 z-20 inline-flex size-12 items-center justify-center rounded-full border border-border/60 bg-card/95 text-foreground shadow-float backdrop-blur-xl transition-transform active:scale-95 touch-target"
         style={{ bottom: `calc(${SNAP_HEIGHT[snap]} + 1rem)` }}
       >
         <LocateFixed className={`size-5 ${locating ? "animate-locate-pulse text-accent" : ""}`} />
@@ -328,9 +330,9 @@ function FindPage() {
             onKeyDown={(e) =>
               e.key === "Enter" && setSnap((s) => (s === "full" ? "collapsed" : "full"))
             }
-            className="flex w-full cursor-grab touch-none items-center justify-center px-5 pb-2 pt-3"
+            className="flex w-full cursor-grab touch-none items-center justify-center px-5 pb-3 pt-4 touch-target"
           >
-            <span className="h-1.5 w-10 rounded-full bg-border" />
+            <span className="h-2 w-12 rounded-full bg-border" />
           </div>
 
           <div className="flex items-center justify-between px-5 pb-3">
@@ -341,7 +343,7 @@ function FindPage() {
             <button
               type="button"
               onClick={() => setSnap((s) => (s === "full" ? "collapsed" : "full"))}
-              className="inline-flex items-center gap-1 text-xs font-semibold text-muted-foreground"
+              className="inline-flex items-center gap-1 text-xs font-semibold text-muted-foreground touch-target py-2"
             >
               {snap === "full" ? (
                 <>
@@ -491,12 +493,12 @@ function PropertyCard({ property, distance, expanded, onSelect, onBook }: CardPr
               <Button
                 size="sm"
                 disabled
-                className="flex-1 rounded-full bg-muted text-muted-foreground"
+                className="flex-1 rounded-full bg-muted text-muted-foreground touch-target"
               >
                 Booked
               </Button>
             ) : (
-              <Button size="sm" className="flex-1 rounded-full" onClick={onBook}>
+              <Button size="sm" className="flex-1 rounded-full touch-target" onClick={onBook}>
                 Book Now
               </Button>
             )}
@@ -506,7 +508,7 @@ function PropertyCard({ property, distance, expanded, onSelect, onBook }: CardPr
               rel="noreferrer"
               className="shrink-0"
             >
-              <Button size="sm" variant="outline" className="rounded-full">
+              <Button size="sm" variant="outline" className="rounded-full touch-target">
                 <Navigation className="mr-1.5 size-4" />
                 Navigate
               </Button>

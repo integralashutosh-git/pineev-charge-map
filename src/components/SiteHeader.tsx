@@ -72,20 +72,23 @@ function FillNavLink({
       {/* Radial fill layer */}
       <motion.div
         className="pointer-events-none absolute inset-0 z-0 rounded-full bg-secondary"
-        initial={{ "--mask-size": "0%" } as React.CSSProperties}
-        animate={{ "--mask-size": isHovered ? "150%" : "0%" } as React.CSSProperties}
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        initial={{ "--mask-size": "0%" } as any}
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        animate={{ "--mask-size": isHovered ? "150%" : "0%" } as any}
         transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         style={
           {
             WebkitMaskImage: `radial-gradient(circle at ${fillPos.x}px ${fillPos.y}px, black var(--mask-size), transparent var(--mask-size))`,
             maskImage: `radial-gradient(circle at ${fillPos.x}px ${fillPos.y}px, black var(--mask-size), transparent var(--mask-size))`,
-          } as React.CSSProperties
+          } as any
         }
       />
       <Link
         to={to}
         className={cn(
-          "relative z-10 block px-3.5 py-2 text-sm font-medium text-muted-foreground transition-colors duration-200",
+          "relative z-10 block px-4 py-3 text-sm font-medium text-muted-foreground transition-colors duration-200 touch-target",
           isHovered && "text-foreground",
           className,
         )}
@@ -151,7 +154,7 @@ export function SiteHeader() {
               type="button"
               onClick={() => setOpen((v) => !v)}
               aria-label="Toggle menu"
-              className="inline-flex size-9 items-center justify-center rounded-full text-foreground transition-colors hover:bg-secondary md:hidden"
+              className="inline-flex size-12 items-center justify-center rounded-full text-foreground transition-colors hover:bg-secondary md:hidden touch-target"
             >
               {open ? <X className="size-5" /> : <Menu className="size-5" />}
             </button>
@@ -166,7 +169,7 @@ export function SiteHeader() {
               key={item.to}
               to={item.to}
               onClick={() => setOpen(false)}
-              className="block rounded-xl px-3 py-3 text-sm font-medium text-foreground transition-colors hover:bg-secondary"
+              className="block rounded-xl px-4 py-4 text-base font-medium text-foreground transition-colors hover:bg-secondary touch-target"
             >
               {item.label}
             </Link>
@@ -176,7 +179,7 @@ export function SiteHeader() {
               <Link
                 to="/dashboard"
                 onClick={() => setOpen(false)}
-                className="block rounded-xl px-3 py-3 text-sm font-medium"
+                className="block rounded-xl px-4 py-4 text-base font-medium touch-target"
               >
                 Dashboard
               </Link>
@@ -186,7 +189,7 @@ export function SiteHeader() {
                   setOpen(false);
                   void signOut();
                 }}
-                className="block w-full rounded-xl px-3 py-3 text-left text-sm font-medium text-muted-foreground"
+                className="block w-full rounded-xl px-4 py-4 text-left text-base font-medium text-muted-foreground touch-target"
               >
                 Sign out
               </button>
@@ -195,7 +198,7 @@ export function SiteHeader() {
             <Link
               to="/auth"
               onClick={() => setOpen(false)}
-              className="block rounded-xl px-3 py-3 text-sm font-medium"
+              className="block rounded-xl px-4 py-4 text-base font-medium touch-target"
             >
               Sign in
             </Link>

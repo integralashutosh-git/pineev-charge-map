@@ -25,6 +25,11 @@
   --radius-3xl: 28px;
   --radius-4xl: 32px;
 
+  --breakpoint-sm: 810px;
+  --breakpoint-md: 1024px;
+  --breakpoint-lg: 1280px;
+  --breakpoint-xl: 1536px;
+
   --font-sans: "Be Vietnam Pro", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-display: "Be Vietnam Pro", ui-sans-serif, system-ui, sans-serif;
 
@@ -260,6 +265,8 @@
 
   html {
     -webkit-tap-highlight-color: transparent;
+    /* Let Lenis control scroll behaviour — native smooth-scroll conflicts with it */
+    scroll-behavior: auto !important;
   }
 
   body {
@@ -293,17 +300,15 @@
 
   button,
   a[role="button"] {
+    /* Only GPU-composited properties — avoids layout/paint triggers on every hover */
     transition:
-      transform 250ms ease,
-      box-shadow 250ms ease,
-      background-color 250ms ease,
-      color 250ms ease,
-      border-color 250ms ease;
+      transform 200ms ease,
+      opacity 200ms ease;
   }
 }
 
 /* Responsive section padding token */
-@media (min-width: 768px) {
+@media (min-width: 810px) {
   :root {
     --section-padding: 56px;
     --card-padding: 24px;
@@ -332,7 +337,7 @@
 /* Consistent page gutters for every full-width container */
 @utility pad-x {
   padding-inline: 20px;
-  @media (min-width: 640px) {
+  @media (min-width: 810px) {
     padding-inline: 32px;
   }
   @media (min-width: 1024px) {
@@ -387,6 +392,9 @@
   filter: blur(60px);
   opacity: 0.5;
   pointer-events: none;
+  /* Promote to own GPU layer so blur doesn't repaint parent on every frame */
+  will-change: transform;
+  backface-visibility: hidden;
   background-image: radial-gradient(
     circle at 30% 30%,
     color-mix(in oklch, var(--primary) 70%, transparent),

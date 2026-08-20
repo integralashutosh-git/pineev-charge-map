@@ -26,6 +26,7 @@ export const Route = createFileRoute("/partner")({
         property: "og:description",
         content: "Turn idle parking into recurring EV charging revenue with PineEV.",
       },
+      { property: "og:image", content: "https://pineev.in/og-image.png" },
     ],
   }),
   component: PartnerPage,
@@ -96,7 +97,7 @@ function PartnerPage() {
             </p>
           </div>
 
-          <div className="mt-10 grid gap-4 md:grid-cols-3">
+          <div className="mt-10 grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
             {BENEFITS.map((item) => (
               <div
                 key={item.title}
@@ -226,7 +227,7 @@ function PartnerPage() {
                     <Button
                       type="submit"
                       size="lg"
-                      className="w-full rounded-full shadow-soft"
+                      className="w-full rounded-full shadow-soft touch-target"
                       disabled={mutation.isPending}
                     >
                       {mutation.isPending ? <Loader2 className="mr-2 size-4 animate-spin" /> : null}

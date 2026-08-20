@@ -18,6 +18,7 @@ import { AmbientBackground } from "@/components/AmbientBackground";
 import { Button } from "@/components/ui/button";
 import { LusionButton } from "@/components/ui/LusionButton";
 import { RollText } from "@/components/ui/RollText";
+import { HoverParallaxImage } from "@/components/ui/HoverParallaxImage";
 import { listProperties } from "@/lib/catalog.functions";
 import {
   chargerSummary,
@@ -78,22 +79,30 @@ function ListPropertyCTA() {
   const [btnHovered, setBtnHovered] = useState(false);
 
   return (
-    <div className="mt-7 flex flex-wrap items-center gap-4">
-      <LusionButton to="/find" variant="accent">
-        <MapPin className="mr-2 size-4" />
+    <div className="mt-7 flex flex-col sm:flex-row items-center gap-4 w-full">
+      <LusionButton to="/find" variant="accent" className="touch-target w-full sm:w-auto flex-1 min-w-0">
+        <MapPin className="mr-2 size-4 flex-shrink-0" />
         Find a charger
       </LusionButton>
-      <span className="text-sm font-medium text-muted-foreground">or</span>
+      {/* Single responsive "or" separator - centered with lines on mobile, simple text on desktop */}
+      <span className="flex items-center gap-2 text-sm font-medium text-muted-foreground w-full sm:w-auto order-2 sm:order-none">
+        {/* Lines on both sides, hidden on desktop */}
+        <span className="h-px flex-1 bg-border sm:hidden" />
+        {/* "or" text - shows on all sizes */}
+        <span className="inline sm:hidden">or</span>
+        <span className="hidden sm:inline">or</span>
+        <span className="h-px flex-1 bg-border sm:hidden" />
+      </span>
       {/* outer div owns the hover so the full pill triggers the roll */}
       <div
         onMouseEnter={() => setBtnHovered(true)}
         onMouseLeave={() => setBtnHovered(false)}
-        className="flex"
+        className="flex w-full sm:w-auto flex-1 min-w-0 order-3 sm:order-none"
       >
-        <Link to="/partner" className="flex">
+        <Link to="/partner" className="flex w-full">
           <Button
             size="lg"
-            className="rounded-full px-6 h-14 shadow-float overflow-hidden pointer-events-none"
+            className="rounded-full px-6 h-14 shadow-float overflow-hidden pointer-events-none touch-target w-full sm:w-auto"
             tabIndex={-1}
           >
             <RollText
@@ -121,8 +130,8 @@ function Landing() {
         {/* Hero */}
         <section className="relative overflow-hidden">
           <AmbientBackground />
-          <div className="mx-auto grid w-full max-w-6xl items-center gap-10 pad-x section-y md:grid-cols-2">
-            <div className="animate-rise">
+          <div className="mx-auto flex w-full max-w-6xl flex-col gap-10 pad-x section-y md:flex-row md:items-start">
+            <div className="animate-rise flex-1 min-w-0 md:w-1/2">
               <span className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1.5 text-xs font-semibold text-muted-foreground shadow-soft">
                 <span className="size-2 rounded-full bg-primary" />
                 {properties.length}+ verified charging destinations
@@ -155,9 +164,9 @@ function Landing() {
               </dl>
             </div>
 
-            <div className="animate-rise">
-              <div className="group relative block overflow-hidden rounded-4xl border border-border bg-card shadow-float">
-                <div className="aspect-[4/5] w-full sm:aspect-[5/4]">
+            <div className="animate-rise flex-1 min-w-0 md:w-1/2">
+              <div className="group relative block overflow-hidden rounded-4xl border border-border bg-card shadow-float h-full min-h-[300px] md:min-h-[400px]">
+                <div className="aspect-square w-full sm:aspect-[4/3]">
                   <MapPanel
                     properties={properties}
                     cluster
@@ -213,7 +222,7 @@ function Landing() {
             <p className="mx-auto mt-3 max-w-lg text-center text-sm text-muted-foreground">
               Three taps between you and a guaranteed charging bay.
             </p>
-            <div className="mt-10 grid gap-4 md:grid-cols-3">
+            <div className="mt-10 grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
               {STEPS.map((step, index) => (
                 <div
                   key={step.title}
@@ -235,7 +244,7 @@ function Landing() {
 
         {/* Featured */}
         <section className="mx-auto w-full max-w-6xl pad-x section-y">
-          <div className="flex items-end justify-between gap-4">
+          <div className="flex items-end justify-between gap-4 flex-wrap">
             <div>
               <h2 className="text-3xl font-bold tracking-tight">Popular destinations</h2>
               <p className="mt-2 text-sm text-muted-foreground">
@@ -244,7 +253,7 @@ function Landing() {
             </div>
             <Link
               to="/find"
-              className="hidden items-center gap-1.5 text-sm font-semibold text-primary sm:inline-flex"
+              className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary shrink-0"
             >
               View map <ArrowRight className="size-4" />
             </Link>
@@ -260,15 +269,14 @@ function Landing() {
               >
                 <div className="aspect-[16/10] overflow-hidden bg-surface">
                   {property.images?.[0] ? (
-                    <img
+                    <HoverParallaxImage
                       src={property.images[0]}
                       alt={property.name}
-                      loading="lazy"
-                      className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      className="size-full"
                     />
                   ) : null}
                 </div>
-                <div className="p-5">
+                <div className="p-5 relative bg-card">
                   <div className="flex items-center justify-between gap-2">
                     <span
                       className={`rounded-full px-2.5 py-1 text-[11px] font-semibold ${statusClasses(property.status)}`}
