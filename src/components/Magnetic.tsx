@@ -1,9 +1,25 @@
 import { useRef, useState } from "react";
 import { motion } from "motion/react";
+import { useDeviceCapability } from "@/hooks/useDeviceCapability";
 
+/**
+ * Magnetic button wrapper — pulls its child slightly toward the cursor.
+ *
+ * On touch-only devices this effect is disabled entirely: `onMouseMove` never
+ * fires on touch so the spring would only add bundle overhead and layout cost
+ * without any visible payoff.
+ */
 export function Magnetic({ children }: { children: React.ReactNode }) {
+  const { isTouchOnly } = useDeviceCapability();
   const ref = useRef<HTMLDivElement>(null);
   const [position, setPosition] = useState({ x: 0, y: 0 });
+
+  // On touch devices: render a simple wrapper, skip all animation machinery.
+  if (isTouchOnly) {
+    return (
+      <div className="flex items-center justify-center">{children}</div>
+    );
+  }
 
   const handleMouse = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!ref.current) return;

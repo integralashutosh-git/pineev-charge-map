@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import { useTheme } from "@/lib/theme";
+import { useDeviceCapability } from "@/hooks/useDeviceCapability";
 
 const SVG = {
   home: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -184,10 +185,9 @@ export function AmbientBackground() {
 
   const { theme } = useTheme();
   const isDark = theme === "dark";
+  const { isLowEnd, isTouchOnly } = useDeviceCapability();
 
   useEffect(() => {
-    let W = 0;
-    let H = 0;
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
@@ -197,14 +197,21 @@ export function AmbientBackground() {
     const container = containerRef.current;
     if (!bldgLayer || !vehLayer || !container) return;
 
+    // Reduce complexity on low-end touch devices (old Androids, budget iPhones)
+    // MAX_VEHICLES: fewer moving elements = fewer compositor layers
+    // SPAWN_INTERVAL: less frequent spawning = less DOM mutation pressure
+    const MAX_VEHICLES = isLowEnd && isTouchOnly ? 2 : 6;
+    const SPAWN_INTERVAL = isLowEnd && isTouchOnly ? 6000 : 3800;
+
+    let W = 0;
+    let H = 0;
     let rafId: number;
+    let isVisible = true; // controlled by IntersectionObserver
     let buildings: Building[] = [];
     let vehicles: Vehicle[] = [];
     let lastSpawn = -3800;
     const SPEED = 0.6;
     const CHARGE_FRAMES = 180;
-    const MAX_VEHICLES = 6;
-    const SPAWN_INTERVAL = 3800;
 
     const PCOL = isDark ? "#00e5b0" : "#0060c0";
     const PTRL = isDark ? "0,229,176" : "0,96,192";
@@ -372,8 +379,9 @@ export function AmbientBackground() {
           ctx.save();
           ctx.strokeStyle = `rgba(${PTRL},${alpha})`;
           ctx.lineWidth = lw;
-          ctx.shadowColor = PCOL;
-          ctx.shadowBlur = 4;
+          // shadowBlur is intentionally omitted: it is the slowest canvas 2D
+          // operation and ran per-segment per-frame. The coloured gradient stroke
+          // alone is indistinguishable at 60fps without the blur cost.
           ctx.beginPath();
           ctx.moveTo(this.trail[i - 1]!.x, this.trail[i - 1]!.y);
           ctx.lineTo(this.trail[i]!.x, this.trail[i]!.y);
@@ -382,8 +390,7 @@ export function AmbientBackground() {
         }
         if (this.state === "TRAVELING" || this.state === "EXITING") {
           ctx.save();
-          ctx.shadowColor = PCOL;
-          ctx.shadowBlur = 12;
+          // No shadowBlur on the dot either — saves ~0.3ms per vehicle per frame
           ctx.fillStyle = PCOL;
           ctx.beginPath();
           ctx.arc(this.x, this.y, 2.2, 0, Math.PI * 2);
@@ -445,6 +452,12 @@ export function AmbientBackground() {
     let lastRafTs = -1; // -1 sentinel = first frame
 
     function loop(rafTs: number) {
+      // If the hero is not visible (user scrolled past it), skip update+render
+      // entirely. The IntersectionObserver below flips `isVisible`.
+      if (!isVisible) {
+        rafId = requestAnimationFrame(loop);
+        return;
+      }
       rafId = requestAnimationFrame(loop);
       // First frame: lastRafTs is -1, so assume 16ms to avoid NaN
       const delta = lastRafTs < 0 ? 16 : Math.min(rafTs - lastRafTs, 50);
@@ -476,6 +489,20 @@ export function AmbientBackground() {
     const ro = new ResizeObserver(resize);
     ro.observe(container);
 
+    // Pause the RAF loop when the hero is not intersecting the viewport.
+    // This eliminates the constant 60fps GPU workload while the user reads
+    // the sections below (How it works, Featured properties, etc.).
+    const io = new IntersectionObserver(
+      (entries) => {
+        isVisible = entries[0]?.isIntersecting ?? true;
+        // Reset the lastRafTs sentinel so the first frame after becoming visible
+        // doesn't accumulate a huge delta and cause an animation jump.
+        if (isVisible) lastRafTs = -1;
+      },
+      { threshold: 0 },
+    );
+    io.observe(container);
+
     resize();
     // Use requestAnimationFrame for the first call so rafTs is always
     // a valid DOMHighResTimeStamp — never undefined/NaN.
@@ -484,10 +511,11 @@ export function AmbientBackground() {
     return () => {
       cancelAnimationFrame(rafId);
       ro.disconnect();
+      io.disconnect();
       if (bldgLayer) bldgLayer.innerHTML = "";
       if (vehLayer) vehLayer.innerHTML = "";
     };
-  }, [isDark]);
+  }, [isDark, isLowEnd, isTouchOnly]);
 
   return (
     <div
@@ -564,7 +592,10 @@ export function AmbientBackground() {
       <div ref={vehLayerRef} className="absolute inset-0 z-20 pointer-events-none" />
 
       {/* Overlays to make the foreground text pop */}
-      <div className="absolute inset-0 bg-background/40 z-30 pointer-events-none backdrop-blur-[1px]" />
+      {/* bg-background/40 tint is sufficient for contrast — the previous
+          backdrop-blur-[1px] here triggered a full-screen blur repaint on
+          every scroll frame, which was the second-biggest jank source. */}
+      <div className="absolute inset-0 bg-background/40 z-30 pointer-events-none" />
       <div
         className="absolute inset-0 z-30 pointer-events-none"
         style={{

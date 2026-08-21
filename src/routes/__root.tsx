@@ -9,7 +9,6 @@ import {
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
 import { ThemeProvider } from "@/lib/theme";
-import { ReactLenis } from 'lenis/react';
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
@@ -144,52 +143,15 @@ function RootShell({ children }: { children: ReactNode }) {
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
 
-  // Respect user's motion preferences — kills smooth scroll for reduced-motion
-  const prefersReducedMotion =
-    typeof window !== "undefined" &&
-    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
+  // Native scroll is now used. CSS `scroll-behavior: smooth` on html handles
+  // programmatic scrolls on the compositor thread (zero JS cost).
+  // prefers-reduced-motion disables smooth scroll globally via styles.css.
   return (
-    <ReactLenis
-      root
-      options={{
-        // Core feel — 0.1 is the industry sweet-spot: smooth enough to feel luxurious,
-        // responsive enough to not feel laggy on low-end devices.
-        lerp: 0.1,
-
-        // How long (in seconds) the scroll momentum lasts. Longer = silkier feel.
-        duration: 1.2,
-
-        // Use CSS easing instead of linear for more natural deceleration.
-        easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-
-        // Intercept and smooth wheel events.
-        smoothWheel: true,
-
-        // Sync with native touch/trackpad inertia on mobile/MacOS so it
-        // doesn't fight the OS scrolling, giving a near-native feel.
-        syncTouch: true,
-
-        // Multipliers control how far one scroll event moves the page.
-        // 1.0 is 1:1 with native — keeps it predictable.
-        wheelMultiplier: 1,
-        touchMultiplier: 1,
-
-        // Kill smooth scroll if user prefers reduced motion (accessibility).
-        ...(prefersReducedMotion && {
-          lerp: 1,
-          duration: 0,
-          smoothWheel: false,
-          syncTouch: false,
-        }),
-      }}
-    >
-      <QueryClientProvider client={queryClient}>
-        <ThemeProvider>
-          {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-          <Outlet />
-        </ThemeProvider>
-      </QueryClientProvider>
-    </ReactLenis>
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider>
+        {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+        <Outlet />
+      </ThemeProvider>
+    </QueryClientProvider>
   );
 }

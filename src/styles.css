@@ -265,8 +265,9 @@
 
   html {
     -webkit-tap-highlight-color: transparent;
-    /* Let Lenis control scroll behaviour — native smooth-scroll conflicts with it */
-    scroll-behavior: auto !important;
+    /* Native CSS smooth scroll — runs on the browser compositor, zero JS cost.
+       prefers-reduced-motion below overrides this to `auto`. */
+    scroll-behavior: smooth;
   }
 
   body {
@@ -528,6 +529,46 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
     scroll-behavior: auto !important;
+  }
+}
+
+/*
+ * Touch / low-end device optimisations
+ * ─────────────────────────────────────────────────────────────────
+ * (hover: none) + (pointer: coarse) = real touch device (phone/tablet).
+ * Killing backdrop-filter and expensive hover effects here in CSS is
+ * zero-cost — no JS, no re-renders, handled by the compositor layer.
+ */
+@media (hover: none) and (pointer: coarse) {
+  /* Kill backdrop-blur on all glass surfaces — the single biggest
+     scroll-jank culprit on mid/low-end mobile GPUs */
+  .backdrop-blur-xl,
+  .backdrop-blur-lg,
+  .backdrop-blur-md,
+  [class*="backdrop-blur"] {
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+    /* Compensate with an opaque tint so the element still looks intentional */
+    background-color: color-mix(in oklch, var(--background) 97%, transparent) !important;
+  }
+
+  /* Kill lift-hover transforms — no hover on touch, saves compositor layers */
+  .lift-hover:hover {
+    transform: none !important;
+    box-shadow: var(--elev-1) !important;
+  }
+
+  /* Kill orb drift animation — large blurred divs animating = GPU pressure */
+  .orb {
+    animation: none !important;
+    will-change: auto !important;
+  }
+
+  /* Kill glass-panel blur */
+  .glass-panel {
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+    background-color: var(--card) !important;
   }
 }
 

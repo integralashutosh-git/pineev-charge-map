@@ -9,6 +9,7 @@ import { Magnetic } from "./Magnetic";
 import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { LusionButton } from "@/components/ui/LusionButton";
+import { useDeviceCapability } from "@/hooks/useDeviceCapability";
 import { cn } from "@/lib/utils";
 
 const NAV = [
@@ -18,7 +19,12 @@ const NAV = [
   { to: "/contact", label: "Contact" },
 ] as const;
 
-/** Nav pill with a radial-gradient fill that expands from wherever the cursor enters */
+/**
+ * Nav pill with a radial-gradient fill that expands from wherever the cursor enters.
+ * On touch-only devices this is replaced with a plain link — the fill animation
+ * requires mousemove which never fires on touch, and framer-motion's layout/spring
+ * overhead is wasted work on mobile.
+ */
 function FillNavLink({
   to,
   children,
@@ -28,10 +34,27 @@ function FillNavLink({
   children: React.ReactNode;
   className?: string;
 }) {
+  const { isTouchOnly } = useDeviceCapability();
   const ref = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
   const [fillPos, setFillPos] = useState({ x: 50, y: 50 });
   const [position, setPosition] = useState({ x: 0, y: 0 });
+
+  // On touch devices skip all the spring / mask machinery — render a plain link.
+  if (isTouchOnly) {
+    return (
+      <Link
+        to={to}
+        className={cn(
+          "relative px-4 py-3 text-sm font-medium text-muted-foreground touch-target",
+          className,
+        )}
+        activeProps={{ className: "bg-secondary text-foreground rounded-full" }}
+      >
+        {children}
+      </Link>
+    );
+  }
 
   const trackMouse = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!ref.current) return;
@@ -105,9 +128,20 @@ function FillNavLink({
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
   const { user, signOut } = useAuth();
+  const { canBackdropBlur } = useDeviceCapability();
 
   return (
-    <header className="sticky top-0 z-40 border-b border-border/70 bg-background/85 backdrop-blur-xl">
+    <header
+      className={cn(
+        "sticky top-0 z-40 border-b border-border/70",
+        // Backdrop blur is a full-width repaint on every scroll frame.
+        // On capable devices it looks great; on touch/low-end it causes jitter.
+        // canBackdropBlur is false for touch+low-end combos — we use a solid bg instead.
+        canBackdropBlur
+          ? "bg-background/85 backdrop-blur-xl"
+          : "bg-background/97",
+      )}
+    >
       <div className="mx-auto flex h-16 w-full max-w-6xl items-center gap-3 pad-x">
         <Link to="/" className="flex items-center">
           <PineLogo className="h-7 w-auto" />
